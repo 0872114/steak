@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="map" style="height: 600px; width: 100%;"></div>foo
+
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyCIC6deUmipx1i53t2ncZlP7MUTeQ52qvY"></script>
+
+<script>
+
+function setGoogleMapCoords(lat, lon){
+
+	// ! $scope is for AngularJS, use common variables instead
+
+	// set latln by latitude and longitude
+	var map;
+	var latLng = new google.maps.LatLng(lat, lon);
+	console.log(lat, lon);
+
+	// set map options, use previously set latln as map center
+	var mapOptions = {
+	  center: latLng,
+	  zoom: 15,
+	  mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+
+	// create a new map
+	map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+	// 3.1 Add a marker
+	google.maps.event.addListenerOnce(map, 'idle', function(){
+	  var marker = new google.maps.Marker({
+		  map: map, // select map to put the marker on
+		  animation: google.maps.Animation.DROP, // animation
+		  position:  latLng// where to put a marker
+	  });
+
+	var lalo = new google.maps.LatLng(55.208, 61.322);
+	var printer1 = new google.maps.Marker({
+		map: map, // select map to put the marker on
+		animation: google.maps.Animation.DROP, // animation
+		position: lalo,
+		icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+	});
+	//meta
+	printer1.address = "bid form placeholder";
+	printer1.addListener('click', function() {
+		console.log (this.address);
+	});
+
+
+
+	});
+}
+
+// call
+
+        window.onload = function(){
+            console.log('window is loaded');
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    console.log('geo is loaded');
+                setGoogleMapCoords(position.coords.latitude, position.coords.longitude);
+             },
+                function(err){
+                    console.warn(`geo ERROR(${err.code}): ${err.message}`);
+
+                    var latLong;
+                    $.getJSON("http://ipinfo.io", function(ipinfo){
+                        console.log("Found location ["+ipinfo.loc+"] by ipinfo.io");
+                        latLong = ipinfo.loc.split(",");
+                        console.log(latLong);
+                     setGoogleMapCoords(latLong[0], latLong[1]);
+                    });
+                }
+            );
+        }
+
+</script>
+{% endblock %}
