@@ -49,6 +49,7 @@ PREREQ_APPS = [
 PROJECT_APPS = [
     'sample',
     'b2c',
+    'b2b'
 ]
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
