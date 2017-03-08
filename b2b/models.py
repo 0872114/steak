@@ -15,6 +15,8 @@ class Printer(models.Model):
     lat = models.FloatField()
     lon = models.FloatField()
 
+    logo = models.ImageField(_(u'Логотип'), upload_to="printers", blank=True)
+
     class Meta:
         verbose_name = _(u'Печатник')
         verbose_name_plural = _(u'Печатники')
