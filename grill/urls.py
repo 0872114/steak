@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^sample/', include('sample.urls')),
     url(r'^b2c/', include('b2c.urls')),
+    url(r'^user/', include('logit.urls')),
 ]
 
 if settings.DEBUG:
