@@ -57,7 +57,6 @@ PROJECT_APPS = [
     'b2c',
     'b2b',
     'logit',
-
 ]
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS

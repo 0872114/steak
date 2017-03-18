@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^sample/', include('sample.urls')),
     url(r'^b2c/', include('b2c.urls')),
     url(r'^user/', include('logit.urls')),
+    url(r'^user/', include('django.contrib.auth.urls')),
 ]
 
 if settings.DEBUG:
