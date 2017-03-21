@@ -86,3 +86,12 @@ nav ul {
 #footer {
 	clear: both;
 }
+
+.modal-title {
+	font-size: 20px!important;
+	display: inline;
+}
+
+.modal-header span {
+	float: left;
+}

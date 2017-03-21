@@ -6,22 +6,23 @@
 <p class="error">Incorrect Name or Password</p>
 {% endif %}
 
-<div class="bloke col-xs-6 col-sm-6">
+<div class="bloke-login col-xs-6 col-sm-6">
 
-<form class="form-group logit-group" action="" method="POST"> {% csrf_token %}
+<form class="form-group logit-group" action="" method="POST">
+    {% csrf_token %}
 
   <div class="form-group logit-group">
-    <label for="InputEmail1" class="regmenu">Username</label>
+    <label for="InputEmail1" class="regmenu">Имя пользователя</label>
       {{ form.username }} <br>
   </div>
 
   <div class="form-group logit-group">
-    <label for="InputPassword1" class="regmenu">Password</label>
+    <label for="InputPassword1" class="regmenu">Пароль</label>
       {{ form.password }}
       <p class="help-block">{{ form.password.help_text }}</p>
   </div>
 
-   <button type="submit" class="btn btn-info logit">Sign In</button>
+   <button type="submit" class="btn btn-info logit">Войти</button>
 
 </form>
 
@@ -29,10 +30,10 @@
 
     <script>
 function MakeItWork(){
-            $("#id_username").attr('placeholder', 'Username');
-            $("#id_username").addClass("form-control");
-            $("#id_password").attr('placeholder', 'Password');
-            $("#id_password").addClass("form-control");
+            $("#id_username").attr('placeholder', 'Имя пользователя');
+            $("#id_username").addClass("form-control plchldr");
+            $("#id_password").attr('placeholder', 'Пароль');
+            $("#id_password").addClass("form-control plchldr");
         }
 window.onload = function(){MakeItWork()}
 </script>

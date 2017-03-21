@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Регистрация</h1>
-<form method="post" action="">
+
+
+    <div class="bloke-register col-xs-6 col-sm-6">
+<form method="post" action="" class="form-group logit-group">
 {% csrf_token %}
 <dl class="register">
 {% for field in form %}
@@ -12,6 +15,26 @@
     </dd>
 {% endfor %}
 </dl>
-<input type="submit" value="Зарегистрироваться"/ class="clearfix">
+<input type="submit" value="Зарегистрироваться" class="clearfix btn btn-success logit">
 </form>
+    </div>
+
+
+    <script>
+function MakeItWork(){
+            $("#id_username").attr('placeholder', 'Имя пользователя');
+            $("#id_username").addClass("form-control plchldr");
+            $("#id_email").attr('placeholder', 'Адрес электронной почты');
+            $("#id_email").addClass("form-control");
+            $("#id_password1").attr('placeholder', 'Пароль');
+            $("#id_password1").addClass("form-control plchldr");
+            $("#id_password2").attr('placeholder', 'Подтверждение пароля');
+            $("#id_password2").addClass("form-control plchldr");
+            $(".clearfix").addClass("help-block");
+            $("label").addClass("regmenu");
+        }
+window.onload = function(){MakeItWork()}
+</script>
+
 {% endblock %}
+

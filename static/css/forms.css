@@ -1,7 +1,14 @@
-.bloke {
+.bloke-register {
     margin-left: 26%;
     position: relative;
-    margin-bottom: 350px;
+    margin-bottom: 550px;
+
+}
+
+.bloke-login {
+    margin-left: 26%;
+    position: relative;
+    margin-bottom: 300px;
 
 }
 
@@ -29,10 +36,10 @@
 }
 
 .logit {
-    margin-top: 20%;
+    margin-top: 10%;
     width: 90%;
 }
 
-.form-control {
+.plchldr {
     text-align: center;
 }
