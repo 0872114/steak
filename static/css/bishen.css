@@ -82,3 +82,7 @@ nav ul {
 	background-color: gray;
 	color: gray;
 }
+
+#footer {
+	clear: both;
+}
