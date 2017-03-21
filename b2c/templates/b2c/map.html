@@ -1,10 +1,112 @@
 {% extends "base.html" %}
 {% block content %}
-<div id="map" style="height: 600px; width: 100%;"></div>foo
-
+<div id="map" style="height: 600px; width: 100%;"></div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="ModalLabel">Оформить заказ</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <form method='post' action="">
+              {% csrf_token %}
+              <div class="modal-body">
+                  <div class="form-group row">
+                      <label for="id_sender" class="col-sm-2 col-form-label">От:</label>
+                      <div class="col-sm-10">
+                          {{ form.sender }}
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="fake_destination" class="col-sm-2 col-form-label">Кому:</label>
+                      <div class="col-sm-10">
+                          {{ form.destination }}
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="id_service" class="col-sm-2 col-form-label">Услуга:</label>
+                      <div class="col-sm-10">
+                          {{ form.service }}
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="id_comment" class="col-sm-2 col-form-label">Описание:</label>
+                      <div class="col-sm-10">
+                          {{ form.comment }}
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="id_email" class="col-sm-2 col-form-label">Контактный Email:</label>
+                      <div class="col-sm-10">
+                          {{ form.email }}
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="id_email" class="col-sm-2 col-form-label">Категория:</label>
+                      <div class="col-sm-10">
+                          {{ form.categories }}
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="id_email" class="col-sm-2 col-form-label">Теги:</label>
+                      <div class="col-sm-10">
+                          {{ form.tags }}
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                  <button type="submit" class="btn btn-primary">Отправить</button>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
 <script src="http://maps.google.com/maps/api/js?key=AIzaSyCIC6deUmipx1i53t2ncZlP7MUTeQ52qvY"></script>
 
 <script>
+
+function restyleChboxes(){
+    var chboxes = $("[id*='id_tags_']");
+    $(chboxes).parents("label").unwrap();
+    $.each(chboxes, function() {
+        var labelText = $(this).parent().text(),
+            newLabelText,
+            currentChbox = $(this);
+        //Change label text and add group data
+        newLabelText = labelText.split(/[\[]\d+[\]]/);
+        $(currentChbox).parent().contents().last()[0].textContent=newLabelText[0];
+        $(currentChbox).data("forOption", newLabelText[1]);
+        //Change input group style
+        $(currentChbox).parent("label").addClass("form-check-label");
+        $(currentChbox).addClass('form-check-input');
+        $(currentChbox).parent().wrap("<div class='form-check'></div>");
+    })
+    $('#id_tags').wrap("<fieldset class='form-group'></fieldset>");
+    sortChboxes();
+}
+
+function sortChboxes(){
+    var chboxes = $("[id*='id_tags_']"),
+        selected = $('#id_categories').find(":selected");
+    console.log(selected.text());
+    $.each(chboxes, function() {
+        $(this).prop('checked', false);
+        if ($(this).data("forOption") == selected.text()){
+            $(this).parent().show();
+        } else {
+            $(this).parent().hide();
+        }
+    })
+
+}
+
+function showPopup(name){
+    $('#myModal').modal('show');
+    $('#id_destination').val(name);
+}
 
 function setGoogleMapCoords(lat, lon){
 
@@ -17,9 +119,9 @@ function setGoogleMapCoords(lat, lon){
 
 	// set map options, use previously set latln as map center
 	var mapOptions = {
-	  center: latLng,
-	  zoom: 15,
-	  mapTypeId: google.maps.MapTypeId.ROADMAP
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 
 	// create a new map
@@ -27,52 +129,56 @@ function setGoogleMapCoords(lat, lon){
 
 	// 3.1 Add a marker
 	google.maps.event.addListenerOnce(map, 'idle', function(){
-	  var marker = new google.maps.Marker({
-		  map: map, // select map to put the marker on
-		  animation: google.maps.Animation.DROP, // animation
-		  position:  latLng// where to put a marker
-	  });
+        var marker = new google.maps.Marker({
+            map: map, // select map to put the marker on
+            animation: google.maps.Animation.DROP, // animation
+            position:  latLng// where to put a marker
+        });
 
-	var lalo = new google.maps.LatLng(55.208, 61.322);
-	var printer1 = new google.maps.Marker({
-		map: map, // select map to put the marker on
-		animation: google.maps.Animation.DROP, // animation
-		position: lalo,
-		icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-	});
-	//meta
-	printer1.address = "bid form placeholder";
-	printer1.addListener('click', function() {
-		console.log (this.address);
-	});
-
-
+    {% for printer in printers %}
+        var {{ printer.coords_name }} = new google.maps.LatLng({{ printer.lat }}, {{ printer.lon }});
+        var {{ printer.marker_name }} = new google.maps.Marker({
+            map: map, // select map to put the marker on
+            animation: google.maps.Animation.DROP, // animation
+            position: {{ printer.coords_name }},
+            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        });
+        //meta
+        {{ printer.marker_name }}.name = '{{ printer.name }}';
+        {{ printer.marker_name }}.address = '{{ printer.address }}';
+        {{ printer.marker_name }}.addListener('click', function() {showPopup(this.name)});
+    {% endfor %}
 
 	});
 }
 
 // call
 
-        window.onload = function(){
-            console.log('window is loaded');
-            navigator.geolocation.getCurrentPosition(
-                function(position) {
-                    console.log('geo is loaded');
-                setGoogleMapCoords(position.coords.latitude, position.coords.longitude);
-             },
-                function(err){
-                    console.warn(`geo ERROR(${err.code}): ${err.message}`);
+window.onload = function(){
+    console.log('window is loaded');
+    restyleChboxes();
+    navigator.geolocation.getCurrentPosition(
+        function(position) {
+            console.log('geo is loaded');
+        setGoogleMapCoords(position.coords.latitude, position.coords.longitude);
+        },
+        function(err){
+            console.warn(`geo ERROR(${err.code}): ${err.message}`);
 
-                    var latLong;
-                    $.getJSON("http://ipinfo.io", function(ipinfo){
-                        console.log("Found location ["+ipinfo.loc+"] by ipinfo.io");
-                        latLong = ipinfo.loc.split(",");
-                        console.log(latLong);
-                     setGoogleMapCoords(latLong[0], latLong[1]);
-                    });
-                }
-            );
+            var latLong;
+            $.getJSON("http://ipinfo.io", function(ipinfo){
+                console.log("Found location ["+ipinfo.loc+"] by ipinfo.io");
+                latLong = ipinfo.loc.split(",");
+                console.log(latLong);
+             setGoogleMapCoords(latLong[0], latLong[1]);
+            });
         }
+    );
+
+    $( "#id_categories" ).change(function() {
+		sortChboxes();
+	});
+}
 
 </script>
 {% endblock %}

@@ -41,5 +41,28 @@ class Categories(models.Model):
     category = models.CharField(_(u'Категория'), max_length=50)
 
 
+    class Meta:
+        verbose_name = _(u'Категория')
+        verbose_name_plural = _(u'Категории')
+
+    def __unicode__(self):
+        return u'%s' % (self.category)
+
+
 class Tags(models.Model):
     tag = models.CharField(_(u'Тег'), max_length=50)
+    cat = models.ForeignKey(
+        'Categories',
+        on_delete=models.CASCADE,
+        default='',
+        null = True,
+        blank = True
+    )
+
+
+    class Meta:
+        verbose_name = _(u'Тег')
+        verbose_name_plural = _(u'Теги')
+
+    def __unicode__(self):
+        return u'%s [%s]%s' % (self.tag, self.cat.id, self.cat)
