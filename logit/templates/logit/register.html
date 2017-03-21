@@ -1,0 +1,50 @@
+{%  extends "base.html" %}
+
+{% block title %}Create user account{% endblock %}
+
+{% block content %}
+
+<div class="bloke col-xs-6 col-sm-6">
+
+<form class="form-group logit-group" action="" method="POST"> {% csrf_token %}
+
+  <div class="form-group logit-group">
+    <label for="InputEmail1" class="regmenu">Email address</label>
+      {{ form.email }} <br>
+  </div>
+
+  <div class="form-group logit-group">
+    <label for="InputPassword1" class="regmenu">Password</label>
+      {{ form.password1 }}
+      <p class="help-block">{{ form.password1.help_text }}</p>
+  </div>
+
+  <div class="form-group logit-group">
+    <label for="InputPassword1" class="regmenu">Password again</label>
+      {{ form.password2 }}
+      <p class="help-block">{{ form.password2.help_text }}</p>
+  </div>
+
+   <button type="submit" class="btn btn-success logit">Submit</button>
+
+</form>
+
+</div>
+
+
+    <script>
+function MakeItWork(){
+            $("#id_email").attr('placeholder', 'Email');
+            $("#id_email").addClass("form-control");
+            $("#id_password1").attr('placeholder', 'Password');
+            $("#id_password1").addClass("form-control");
+            $("#id_password2").attr('placeholder', 'Verify Password');
+            $("#id_password2").addClass("form-control");
+        }
+window.onload = function(){MakeItWork()}
+</script>
+
+
+{% endblock %}
+
+{{ form.s }}
