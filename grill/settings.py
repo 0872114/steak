@@ -149,4 +149,3 @@ STATIC_URL = '/static/'
 # WYSIWIG django-redactor options
 
 REDACTOR_OPTIONS = {'lang': 'ru'}
-REDACTOR_UPLOAD = {'uploads/'}

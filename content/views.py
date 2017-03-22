@@ -1,16 +1,23 @@
-from django.shortcuts import render_to_response, redirect
+#! python
+# -- coding: utf-8 ---
 
-def main_page(request):
-    return render_to_response('content/main_page.html')
+
+from django.shortcuts import render_to_response, redirect
+from models import Entry
+
+def main_page(request, titles=u'Главная'):
+    contents = Entry.objects.get(title=titles).short_text
+    context = {'short_text' :  contents, 'title' : titles}
+    return render_to_response('content/main_page.html', context)
 
 def about(request):
-    return render_to_response('content/about.html')
+    return main_page(request, titles=u'О нас')
 
 def printing1(request):
-    return render_to_response('content/printing1.html')
+    return main_page(request, titles=u'О печати 1')
 
 def printing2(request):
-    return render_to_response('content/printing2.html')
+    return main_page(request, titles=u'О печати 2')
 
 def printing3(request):
-    return render_to_response('content/printing3.html')
+    return main_page(request, titles=u'О печати 3')

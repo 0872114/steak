@@ -16,3 +16,6 @@ class EntryAdminForm(forms.ModelForm):
 
 class EntryAdmin(admin.ModelAdmin):
     form = EntryAdminForm
+
+
+admin.site.register(Entry, EntryAdmin)

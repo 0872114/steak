@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 
 {% block headtitle %}
-    Главная
+    {{ title }}
+{% endblock %}
+
+{% block headertext %}
+    <h1>{{ title }}</h1>
 {% endblock %}
 
 {% block content %}
-    <div>
-        <h1 class="main_page">Content1</h1>
-        <h2 class="main_page">Content2</h2>
+    <div class="editable">
 
+    {{ short_text | safe }}
 
 
     </div>
