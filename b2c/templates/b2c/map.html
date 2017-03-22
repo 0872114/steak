@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
+<form class="navbar-form navbar-right" accept-charset="utf-8" role="search" method='post' action="">
+    <div class="form-group">
+        <input name="filter" id="filter" type="text" class="form-control" placeholder="{{ get }}">
+    </div>
+    {% csrf_token %}
+    <button type="submit" class="btn btn-default">Найти</button>
+</form>
 <div id="map" style="height: 600px; width: 100%;"></div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -91,7 +98,6 @@ function restyleChboxes(){
 function sortChboxes(){
     var chboxes = $("[id*='id_tags_']"),
         selected = $('#id_categories').find(":selected");
-    console.log(selected.text());
     $.each(chboxes, function() {
         $(this).prop('checked', false);
         if ($(this).data("forOption") == selected.text()){
