@@ -19,7 +19,7 @@ def map(request):
         args['get'] = filter
         printers = Printer.objects.filter(Q(name__icontains=filter) | \
                                           Q(categories__category__icontains=filter) | \
-                                          Q(tags__tag__icontains=filter))
+                                          Q(tags__tag__icontains=filter)).distinct()
     else:
         printers = Printer.objects.all()[:50]
         if request.POST:
