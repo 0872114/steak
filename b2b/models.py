@@ -17,16 +17,8 @@ class Printer(models.Model):
 
     logo = models.ImageField(_(u'Логотип'), upload_to="printers", blank=True)
 
-    categories = models.ForeignKey(
-        'Categories',
-        on_delete=models.CASCADE,
-        default='',
-    )
-    tags = models.ForeignKey(
-        'Tags',
-        on_delete=models.CASCADE,
-        default='',
-    )
+    categories = models.ManyToManyField('Categories')
+    tags = models.ManyToManyField('Tags')
 
 
     class Meta:
@@ -56,7 +48,6 @@ class Tags(models.Model):
         on_delete=models.CASCADE,
         default='',
         null = True,
-        blank = True
     )
 
 
