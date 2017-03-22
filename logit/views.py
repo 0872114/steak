@@ -12,7 +12,7 @@ def register(request):
         newuser_form = MyUserCreationForm(request.POST)
         if newuser_form.is_valid():
             newuser_form.save()
-            newuser = auth.authenticate(username=newuser_form.cleaned_data['username'], password=newuser_form.cleaned_data['password2'])
+            newuser = auth.authenticate(username=newuser_form.cleaned_data['username'], password=newuser_form.cleaned_data['password1'])
             auth.login(request, newuser)
             return redirect('/')
         else:

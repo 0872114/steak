@@ -12,12 +12,12 @@
     {% csrf_token %}
 
   <div class="form-group logit-group">
-    <label for="InputEmail1" class="regmenu">Имя пользователя</label>
+    <label for="id_username" class="regmenu">Имя пользователя</label>
       {{ form.username }} <br>
   </div>
 
   <div class="form-group logit-group">
-    <label for="InputPassword1" class="regmenu">Пароль</label>
+    <label for="id_password" class="regmenu">Пароль</label>
       {{ form.password }}
       <p class="help-block">{{ form.password.help_text }}</p>
   </div>
