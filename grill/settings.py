@@ -57,6 +57,8 @@ PROJECT_APPS = [
     'b2c',
     'b2b',
     'logit',
+    'content',
+    'redactor',
 ]
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
@@ -143,3 +145,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# WYSIWIG django-redactor options
+
+REDACTOR_OPTIONS = {'lang': 'ru'}
+REDACTOR_UPLOAD = {'uploads/'}

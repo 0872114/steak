@@ -27,22 +27,22 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="../" class="navbar-brand">BiShen</a>
+                    <a href="{% url 'main_page' %}" class="navbar-brand">BiShen</a>
                 </div>
 
                 <nav class="collapse navbar-collapse bs-navbar-collapse collapse in" role="navigation">
                     <ul class="nav navbar-nav">
-                        <li><a href="../">Find Typographer</a></li>
-                        <li><a href="../">Find oder</a></li>
+                        <li><a href="../">Найти печатника</a></li>
+                        <li><a href="{% url 'b2c' %}">Найти заказ</a></li>
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">About printing<span class="caret"></span></a>
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">О печати<span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Link1</a></li>
-                                <li><a href="#">Link2</a></li>
-                                <li><a href="#">Link3</a></li>
+                                <li><a href="{% url 'printing1' %}">Ссылка1</a></li>
+                                <li><a href="{% url 'printing2' %}">Ссылка2</a></li>
+                                <li><a href="{% url 'printing3' %}">Ссылка3</a></li>
                               </ul>
                             </li>
-                        <li><a href="../">About</a></li>
+                        <li><a href="{% url 'about' %}">О нас</a></li>
                 </ul>
                 </nav>
             </div>

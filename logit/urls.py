@@ -3,5 +3,5 @@ from views import *
 
 
 urlpatterns = [
-    url(r'register/$', register),
+    url(r'register/$', register, name="register"),
 ]
