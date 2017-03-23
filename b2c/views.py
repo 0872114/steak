@@ -44,7 +44,8 @@ def map(request, template='b2c/map.html'):
             lon=str(printer.lon).replace(',', '.'),
             marker_name="marker_" + str(printer.id),
             address=printer.address,
-            name=printer.name
+            name=printer.name,
+            id=printer.id
         )
         args['printers'].append(marker)
     tuple(args['printers'])

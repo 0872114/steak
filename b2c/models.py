@@ -10,7 +10,13 @@ class Order(models.Model):
     email = models.EmailField(_(u'Email'))
     datetime = models.DateTimeField(_(u'Время создания'), default=timezone.now)
     sender = models.CharField(_(u'Отправитель'), max_length=50)
-    destination = models.CharField(_(u'Получатель'), default='bidmarket', blank=True, max_length=50)
+    phone = models.CharField(_(u'Телефон'), max_length=15, blank=True)
+    destination = models.ForeignKey(
+        'b2b.Printer',
+        on_delete=models.CASCADE,
+        default=None,
+        null = True,
+    )
     service = models.CharField(_(u'Услуга'), max_length=50)
     comment = models.TextField(_(u'Комментарий'))
     categories = models.ForeignKey(

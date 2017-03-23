@@ -26,6 +26,5 @@ class OrderForm(ModelForm):
             self.fields[field].widget.attrs.update({
                 "class": classes
             })
-        self.fields["destination"].widget.attrs.update({"readonly": "readonly"})
         self.fields["tags"].widget = CheckboxSelectMultiple()
         self.fields["tags"].queryset = Tags.objects.all()
