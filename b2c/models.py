@@ -4,13 +4,15 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+from b2b.models import Tags, Categories
+from django.forms import CheckboxSelectMultiple
 
 
 class Order(models.Model):
     email = models.EmailField(_(u'Email'))
     datetime = models.DateTimeField(_(u'Время создания'), default=timezone.now)
     sender = models.CharField(_(u'Отправитель'), max_length=50)
-    destination = models.CharField(_(u'Получатель'), default='bidmarket', blank=True, max_length=50)
+    destination = models.CharField(_(u'Получатель'), max_length=50)
     service = models.CharField(_(u'Услуга'), max_length=50)
     comment = models.TextField(_(u'Комментарий'))
     categories = models.ForeignKey(

@@ -4,23 +4,15 @@
 from django.shortcuts import render_to_response, redirect
 from forms import OrderForm
 from django.template.context_processors import csrf
-from b2b.models import Printer, Tags
+from b2b.models import Printer
 from django.db.models import Q
 
 
-def map(request, template='b2c/map.html'):
+def map(request):
     args = {}
     args.update(csrf(request))
     args['form'] = OrderForm
     args['printers'] = []
-
-    tags = Tags.objects.distinct()
-    mystring = ''
-    for tag in tags:
-        mydict = u'"%s":"%s"' % (tag.tag, tag.cat.category)
-        mystring = u'%s, %s' % (mystring, mydict)
-
-    args['tags'] = '{%s}' % (mystring[1:])
 
     if 'filter' in request.POST and request.POST['filter']:
         filter = request.POST['filter']
@@ -49,7 +41,4 @@ def map(request, template='b2c/map.html'):
         args['printers'].append(marker)
     tuple(args['printers'])
 
-    return render_to_response(template, args)
-
-def market(request):
-    return map(request, template='b2c/market.html')
+    return render_to_response('b2c/map.html', args)
