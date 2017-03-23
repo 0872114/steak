@@ -56,13 +56,13 @@
                       </div>
                   </div>
                   <div class="form-group row">
-                      <label for="id_email" class="col-sm-2 col-form-label">Категория:</label>
+                      <label for="id_categories" class="col-sm-2 col-form-label">Категория:</label>
                       <div class="col-sm-10">
                           {{ form.categories }}
                       </div>
                   </div>
                   <div class="form-group row">
-                      <label for="id_email" class="col-sm-2 col-form-label">Теги:</label>
+                      <label class="col-sm-2 col-form-label">Теги:</label>
                       <div class="col-sm-10">
                           {{ form.tags }}
                       </div>
@@ -85,12 +85,7 @@ function restyleChboxes(){
     $(chboxes).parents("label").unwrap();
     $.each(chboxes, function() {
         var labelText = $(this).parent().text(),
-            newLabelText,
             currentChbox = $(this);
-        //Change label text and add group data
-        newLabelText = labelText.split(/[\[]\d+[\]]/);
-        $(currentChbox).parent().contents().last()[0].textContent=newLabelText[0];
-        $(currentChbox).data("forOption", newLabelText[1]);
         //Change input group style
         $(currentChbox).parent("label").addClass("form-check-label");
         $(currentChbox).addClass('form-check-input');
@@ -102,10 +97,11 @@ function restyleChboxes(){
 
 function sortChboxes(){
     var chboxes = $("[id*='id_tags_']"),
-        selected = $('#id_categories').find(":selected");
+        selected = $('#id_categories').find(":selected"),
+        chboxDict = {{ tags |safe }};
     $.each(chboxes, function() {
         $(this).prop('checked', false);
-        if ($(this).data("forOption") == selected.text()){
+        if (chboxDict[$(this).parent().text().trim()] == selected.text()){
             $(this).parent().show();
         } else {
             $(this).parent().hide();
