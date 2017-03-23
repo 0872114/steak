@@ -56,4 +56,4 @@ class Tags(models.Model):
         verbose_name_plural = _(u'Теги')
 
     def __unicode__(self):
-        return u'%s [%s]%s' % (self.tag, self.cat.id, self.cat)
+        return u'%s' % (self.tag)
