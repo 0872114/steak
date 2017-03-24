@@ -62,6 +62,7 @@ PROJECT_APPS = [
     'paypal.standard.ipn',
     'transactions',
     'market',
+    'chat',
 ]
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS

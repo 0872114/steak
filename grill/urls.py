@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^paytest/', include ('transactions.urls')),
     url(r'^market/', include('market.urls')),
     url(r'^b2b/', include('b2b.urls')),
+    url(r'^chat/', include('chat.urls')),
 ]
 
 if settings.DEBUG:

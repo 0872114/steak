@@ -1,0 +1,16 @@
+.window {
+    width: 200px;
+    height: 100px;
+    padding: 10px;
+    background-color: #f6f6f6;
+    margin: 20px;
+    border-style: solid;
+    border-width: thin;
+    border-color: #f4f4f4;
+    border-radius: 20px;
+}
+
+#id_message {
+    width: 70%;
+    margin: 20px;
+}
