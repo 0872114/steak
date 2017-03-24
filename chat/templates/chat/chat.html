@@ -1,0 +1,52 @@
+{%  extends 'base.html' %}
+
+
+
+
+{% block content %}
+
+
+{% if msgs %}
+ {% for msg in msgs %}
+    <div class="window">
+        <h5>{{ msg.sender }} | {{ msg.date |date:'Y-m-d H:i' }}</h5>
+        <div class="msg">
+            <p>
+                {{ msg.message }}
+            </p>
+            </br id="{{ msg.id }}">
+        </div>
+    </div>
+ {% endfor %}
+
+{% endif %}
+
+    <h3> ======= </h3>
+
+<form method="POST" action="./">
+{% csrf_token %}
+    <h3> INPUT </h3>
+
+   <input for="id_order" name="order" type="hidden" value="{{ order }}">
+   <input for="id_sender" name="sender" type="hidden" value="{{ sender }}">
+
+    <div id="chat_message">
+    <p>{{ form.message }}</p>
+
+    <button type="submit" class="btn btn-primary chat-button">Отправить</button>
+    </div>
+</form>
+
+
+    {{ order }}
+    {{ sender }}
+
+<script>
+    function MakeItWork(){
+            $("#id_message").addClass("form-control");
+        }
+window.onload = function(){MakeItWork()}
+</script>
+
+
+{% endblock %}
