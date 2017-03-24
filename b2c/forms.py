@@ -11,7 +11,7 @@ from django.forms.widgets import CheckboxSelectMultiple
 class OrderForm(ModelForm):
     class Meta:
         model = Order
-        exclude = ['datetime', 'status']
+        exclude = ['datetime']
 
     def __init__(self, *args, **kwargs):
         super(OrderForm, self).__init__(*args, **kwargs)
@@ -28,4 +28,3 @@ class OrderForm(ModelForm):
             })
         self.fields["tags"].widget = CheckboxSelectMultiple()
         self.fields["tags"].queryset = Tags.objects.all()
-        self.fields["destination"].required = False

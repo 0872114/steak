@@ -7,18 +7,6 @@ from django.utils import timezone
 
 
 class Order(models.Model):
-    NEW = 'new'
-    ACTIVE = 'active'
-    DECLINED = 'declined'
-    DONE = 'done'
-    STATUS_CHOICES = (
-        (NEW, 'Новый'),
-        (ACTIVE, 'В работе'),
-        (DECLINED, 'Отказ'),
-        (DONE, 'Выполнен'),
-    )
-    status = models.CharField(_(u'Статус'), choices=STATUS_CHOICES, max_length=10, default=NEW,
-                              blank=False)
     email = models.EmailField(_(u'Email'))
     datetime = models.DateTimeField(_(u'Время создания'), default=timezone.now)
     sender = models.CharField(_(u'Отправитель'), max_length=50)
@@ -38,8 +26,6 @@ class Order(models.Model):
         null = True,
     )
     tags = models.ManyToManyField('b2b.Tags')
-    market = models.BooleanField(_(u'Участвует в рынке заявок'), default=False)
-
 
     class Meta:
         verbose_name = _(u'Заявка')
