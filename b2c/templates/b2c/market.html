@@ -4,6 +4,10 @@
     Рынок заказов
 {% endblock %}
 
+{% block headertext %}
+    Разместите заказ и выберите лучшее предложение!
+{% endblock %}
+
 {% block content %}
     <form method='post' action="./">
         {% csrf_token %}

@@ -26,7 +26,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^sample/', include('sample.urls')),
-    url(r'^client/', include('b2c.urls')),
+    url(r'^', include('b2c.urls')),
     url(r'^user/', include('logit.urls')),
     url(r'^user/', include('django.contrib.auth.urls'), name="login"),
     url(r'', include('content.urls')),
