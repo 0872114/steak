@@ -17,10 +17,8 @@ def bidmarket(request):
             email = order.email,
             datetime = order.datetime,
             sender = order.sender,
-            #phone = str(order.phone),
             service = order.service,
             comment = order.comment,
-            #categories = str(order.categories.category)
         )
         list.append(order_data)
     tuple(list)

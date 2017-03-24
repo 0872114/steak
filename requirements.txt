@@ -1,3 +1,4 @@
 django
 Pillow
 django-wysiwyg-redactor
+django-paypal

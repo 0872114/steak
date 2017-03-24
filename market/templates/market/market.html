@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <table>
+    <table class="table table-bordered">
         <tr>
             <th> Время </th>
             <th> Клиент </th>
@@ -19,7 +19,7 @@
                 <td> {{ order.datetime |date:'Y-m-d H:i' }} </td>
                 <td> {{ order.sender }} </td>
                 <td> {{ order.email }} </td>
-                <td> {{ order.market }} {{ order.status }} </td>
+                <td> {{ order.status }} </td>
                 <td> {{ order.service }} </td>
                 <td> {{ order.comment }} </td>
             </tr>
