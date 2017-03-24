@@ -34,7 +34,7 @@ SECRET_KEY = 'q6rgy&15ujf)l3buo_p5i7d%-z(0tl0%d1y5p_2(q8_2wn%!)e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '188.120.242.176']
+ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1', '188.120.242.176']
 
 
 STATICFILES_DIRS = [
