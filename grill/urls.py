@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^paypal', include('paypal.standard.ipn.urls')),
     url(r'^paytest/', include ('transactions.urls')),
     url(r'^market/', include('market.urls')),
+    url(r'^b2b/', include('b2b.urls')),
 ]
 
 if settings.DEBUG:

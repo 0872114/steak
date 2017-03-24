@@ -3,9 +3,13 @@
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Printer(models.Model):
+    user = models.OneToOneField(User, null=True)
     name = models.CharField(_(u'Название'), max_length=30)
     address = models.CharField(_(u'Адрес'), max_length=50)
     email = models.EmailField(_(u'Email'))
@@ -27,6 +31,7 @@ class Printer(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.name)
+
 
 
 class Categories(models.Model):
