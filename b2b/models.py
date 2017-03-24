@@ -4,23 +4,18 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 
 
-class Printer(models.Model):
-    user = models.OneToOneField(User, null=True)
+class Printer(User):
+    user = models.OneToOneField(User, null=False)
     name = models.CharField(_(u'Название'), max_length=30)
     address = models.CharField(_(u'Адрес'), max_length=50)
-    email = models.EmailField(_(u'Email'))
     phone = models.CharField(_(u'Телефон'), max_length=15)
     website = models.URLField(_(u'Вебсайт'))
     services = models.CharField(_(u'Услуги'), max_length=50)
     lat = models.FloatField(_(u'Широта'))
     lon = models.FloatField(_(u'Долгота'))
-
     logo = models.ImageField(_(u'Логотип'), upload_to="printers", blank=True)
-
     categories = models.ManyToManyField('Categories')
     tags = models.ManyToManyField('Tags')
 
@@ -33,10 +28,8 @@ class Printer(models.Model):
         return u'%s' % (self.name)
 
 
-
 class Categories(models.Model):
     category = models.CharField(_(u'Категория'), max_length=50)
-
 
     class Meta:
         verbose_name = _(u'Категория')
@@ -54,7 +47,6 @@ class Tags(models.Model):
         default='',
         null = True,
     )
-
 
     class Meta:
         verbose_name = _(u'Тег')

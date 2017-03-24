@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Регистрация</h1>
+
+
+    <div class="bloke-register col-xs-6 col-sm-6">
+<form enctype="multipart/form-data" method="post">
+{% csrf_token %}
+<dl class="register">
+
+{% for field in printers %}
+    <dt>{{ field.label_tag }}</dt>
+    <dd class="clearfix">{{ field }}
+    {% if field.help_text %}<div class="clearfix">{{ field.help_text }}</div>{% endif %}
+    {% if field.errors %}<div class="myerrors clearfix">{{ field.errors }}</div>{% endif %}
+    </dd>
+{% endfor %}
+
+</dl>
+<input type="submit" value="Зарегистрироваться" class="clearfix btn btn-success logit">
+</form>
+    </div>
+
+
+{% endblock %}
