@@ -31,6 +31,8 @@ urlpatterns = [
     url(r'^user/', include('django.contrib.auth.urls'), name="login"),
     url(r'', include('content.urls')),
     url(r'^redactor', include('redactor.urls')),
+    url(r'^paypal', include('paypal.standard.ipn.urls')),
+    url(r'^paytest/', include ('transactions.urls')),
     url(r'^market/', include('market.urls')),
 ]
 

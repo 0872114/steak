@@ -59,6 +59,8 @@ PROJECT_APPS = [
     'logit',
     'content',
     'redactor',
+    'paypal.standard.ipn',
+    'transactions',
     'market',
 ]
 
@@ -150,3 +152,8 @@ STATIC_URL = '/static/'
 # WYSIWIG django-redactor options
 
 REDACTOR_OPTIONS = {'lang': 'ru'}
+
+
+# PAYPAL options
+
+PAYPAL_TEST = True
