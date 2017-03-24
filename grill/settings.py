@@ -59,6 +59,7 @@ PROJECT_APPS = [
     'logit',
     'content',
     'redactor',
+    'market',
 ]
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS

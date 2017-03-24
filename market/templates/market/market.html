@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block headtitle %}
+    Рынок заказов
+{% endblock %}
+
+{% block content %}
+    <table>
+        <tr>
+            <th> Время </th>
+            <th> Клиент </th>
+            <th> Почта </th>
+            <th> Статус </th>
+            <th> Заголовок </th>
+            <th> Комментарий </th>
+        </tr>
+        {% for order in orders %}
+            <tr>
+                <td> {{ order.datetime |date:'Y-m-d H:i' }} </td>
+                <td> {{ order.sender }} </td>
+                <td> {{ order.email }} </td>
+                <td> {{ order.market }} {{ order.status }} </td>
+                <td> {{ order.service }} </td>
+                <td> {{ order.comment }} </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
