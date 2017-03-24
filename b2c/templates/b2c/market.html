@@ -7,6 +7,7 @@
 {% block content %}
     <form method='post' action="">
         {% csrf_token %}
+        <input id="id_market" value="on" name="market" type="hidden" />
         <div class="modal-body">
             <div class="form-group row">
                 <label for="id_sender" class="col-sm-2 col-form-label">От:</label>
