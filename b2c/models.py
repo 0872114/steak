@@ -25,7 +25,7 @@ class Order(models.Model):
     destination = models.ForeignKey(
         'b2b.Printer',
         on_delete=models.CASCADE,
-        default=None,
+        blank=True,
         null = True,
     )
     service = models.CharField(_(u'Услуга'), max_length=50)
