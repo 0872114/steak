@@ -15,13 +15,31 @@
             <th> Комментарий </th>
         </tr>
         {% for order in orders %}
-            <tr>
+            <tr
+                    {% if order.taken == 1 %}
+                        class="tr-market-grey"
+                    {% endif %}
+            >
                 <td> {{ order.datetime |date:'Y-m-d H:i' }} </td>
                 <td> {{ order.sender }} </td>
                 <td> {{ order.email }} </td>
                 <td> {{ order.status }} </td>
                 <td> {{ order.service }} </td>
                 <td> {{ order.comment }} </td>
+            </tr >
+            <tr
+                    {% if order.taken == 1 %}
+                        class="tr-market-grey"
+                    {% endif %}
+            >
+                <td colspan="6">
+                    {{ order.destination }}
+                    {% if order.taken == 1 %}
+                        <b>Заказ назначен.</b>
+                    {% else %}
+                        <b>Здесь будет количество отзывов и кнопки "откликнуться" и "отписать комментарий ".</b>
+                    {% endif %}
+                </td>
             </tr>
         {% endfor %}
     </table>

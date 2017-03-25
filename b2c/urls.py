@@ -3,5 +3,5 @@ from views import *
 
 urlpatterns = [
     url(r'^$', map, name="map"),
-    url('^market/', market, name="market"),
+    url('^market/order/$', market, name="market"),
 ]
