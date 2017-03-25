@@ -26,7 +26,7 @@ class Order(models.Model):
         User,
         related_name='order_user',
         on_delete=models.CASCADE,
-        default='',
+        blank=True,
         null = True,
     )
     phone = models.CharField(_(u'Телефон'), max_length=15, blank=True)
