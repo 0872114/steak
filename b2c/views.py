@@ -13,6 +13,12 @@ def map(request, template='b2c/map.html'):
     args.update(csrf(request))
     args['form'] = OrderForm
     args['printers'] = []
+    if request.user.id:
+        user = request.user
+        args['user_id'] = request.user.id
+        args['user_first_name'] = user.first_name
+        args['user_last_name'] = user.last_name
+        args['user_email'] = user.email
 
     tags = Tags.objects.distinct()
     mystring = ''
