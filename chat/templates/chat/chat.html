@@ -5,12 +5,12 @@
 
 {% block content %}
 
-
+<div class="chat-window container-outside">
 {% if msgs %}
  {% for msg in msgs %}
-    <div class="window">
+    <div class="msg {{ msg.style }}">
         <h5>{{ msg.sender }} | {{ msg.date |date:'Y-m-d H:i' }}</h5>
-        <div class="msg">
+        <div class="msg-text">
             <p>
                 {{ msg.message }}
             </p>
@@ -20,12 +20,13 @@
  {% endfor %}
 
 {% endif %}
+</div>
 
-    <h3> ======= </h3>
+    <h3> ==={% with msgs|last as last %}{{ last.message }}{% endwith %}==== </h3>
 
 <form method="POST" action="./">
 {% csrf_token %}
-    <h3> INPUT </h3>
+    <h3 id="kek"> INPUT </h3>
 
    <input for="id_order" name="order" type="hidden" value="{{ order }}">
    <input for="id_sender" name="sender" type="hidden" value="{{ sender }}">
@@ -41,12 +42,119 @@
     {{ order }}
     {{ sender }}
 
+{% endblock %}
+
+{% block javascript %}
 <script>
     function MakeItWork(){
             $("#id_message").addClass("form-control");
         }
-window.onload = function(){MakeItWork()}
+window.onload = function(){MakeItWork()};
+
+
+var ajax_id = '{% with msgs|last as last %}{{ last.id }}{% endwith %}';
+var ajax_order = '{% with msgs|last as last %}{{ last.order }}{% endwith %}';
+
+console.log(ajax_id);
+console.log(ajax_order);
+
+function get_id() {
+            if (ajax_id == '{% with msgs|last as last %}{{ last.id }}{% endwith %}')
+            {
+                return ajax_id
+            } else {
+                return ajax_id
+            }
+}
+
+function get_order() {
+    if (ajax_order == '{% with msgs|last as last %}{{ last.order }}{% endwith %}') {
+        return ajax_order
+    } else {
+        return ajax_order
+    }
+}
+
+
+
+function AjaxCall() {
+    console.log(['azaza'])
+   var foo = $.ajax({
+    //type: 'POST',
+    url:'{% url "chat_ajax" %}',
+    data: {
+        "lastmsg_id":get_id(),
+        "order": get_order(),
+    },
+    datatype: 'json',
+    success: function(data) {
+        console.log(data);
+        console.log(data.style)
+        console.log(['ajax success']);
+        console.log(ajax_id);
+       if (data.message) {
+            console.log(['working?']);
+           $('<p>data.message</p>').appendTo('.chat-window')
+           $('<div class="msg new-msgs" id="msg_'+data.id+'"></div>').appendTo(".chat-window");
+           $('#msg_' + data.id).addClass(data.style)
+           $('<h5>' + data.sender + ' | ' + data.date + '</h5>').appendTo("#msg_"+data.id);
+           $('<div class="msg-text" id="text_'+data.id+'"></div>').appendTo("#msg_"+data.id);
+           $('<p>' + data.message + '</p>').appendTo("#text_"+data.id);
+           $('</br id="'+ data.id +'">').appendTo("#text_"+data.id);
+           $('.chat-window').scrollTop($('.chat-window')[0].scrollHeight);
+           ajax_id = data.id;
+           console.log(ajax_id);
+           ajax_order = data.order;
+           console.log(ajax_order);
+ }
+    },
+    error: function() { console.log["error"] }
+    });
+   //console.log(foo)
+}
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+window.onload = function(){$('.chat-window').scrollTop($('.chat-window')[0].scrollHeight);};
+setInterval(AjaxCall, 200);
 </script>
 
 
 {% endblock %}
+
+<!--            <p> Debug Sender: '{{ msg.sender }}'</p>
+            <p> Debug Order: {{ msg.order }}</p>
+            <p> Debug Order_Sendr: {{ msg.oder_sender }}</p>
+            <p> Debug Order_Dest: {{ msg.order_destination }}</p>
+            <p> Debug Id: '{{ msg.id }}'</p>
+            <p> Debug1 user: '{{ debug }}'</p>
+            <p> Debug2 id: '{{ debug2 }}'</p>
+            <p> Debug Style: {{ msg.style }}</p>
+/!-->

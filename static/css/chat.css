@@ -1,16 +1,53 @@
-.window {
+.msg {
     width: 200px;
-    height: 100px;
+    height: 120px;
     padding: 10px;
-    background-color: #f6f6f6;
     margin: 20px;
-    border-style: solid;
     border-width: thin;
     border-color: #f4f4f4;
     border-radius: 20px;
+    clear: both;
+}
+
+.tpv {
+    border-top-left-radius: 0px;
+    float: left;
+    background-color: #ebebeb;
+}
+
+.fpv {
+    border-top-right-radius: 0px;
+    float: right;
+    background-color: #e6f2ff;
 }
 
 #id_message {
     width: 70%;
     margin: 20px;
 }
+
+.chat-window {
+    overflow-x: auto;
+    background-color: #fafafa;
+    width: 96%;
+    height: 400px;
+    margin: 20px;
+    margin-left: 2%;
+    border-radius: 20px;
+}
+
+.chat-window::-webkit-scrollbar {
+    width: 15px;
+    background-color: #fafafa;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+
+.chat-window::-webkit-scrollbar-thumb {
+    width: 15px;
+    background-color: #ebebeb;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
