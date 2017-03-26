@@ -23,10 +23,10 @@ def map(request, template='b2c/map.html'):
     tags = Tags.objects.distinct()
     mystring = ''
     for tag in tags:
-        mydict = u'"%s":"%s"' % (tag.tag, tag.cat.category)
+        mydict = u'%d:%d' % (tag.id, tag.cat.id)
         mystring = u'%s, %s' % (mystring, mydict)
 
-    args['tags'] = '{%s}' % (mystring[1:])
+    args['tags'] = '{%s}' % (mystring[2:])
 
     if 'filter' in request.POST and request.POST['filter']:
         filter = request.POST['filter']
@@ -59,4 +59,8 @@ def map(request, template='b2c/map.html'):
     return render_to_response(template, args)
 
 def market(request):
-    return map(request, template='b2c/market.html')
+    if request.user.id:
+        return map(request, template='b2c/market.html')
+    else:
+        return render_to_response('please_login.html')
+

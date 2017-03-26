@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block headtitle %}
+    Рынок заказов
+{% endblock %}
+
+{% block content %}
+<h2> У Вас недостаточно прав для посещения данной страницы. <br/>
+    Пожалуйста,
+    <a href="{% url 'login' %}">войдите</a> или <a href="{% url 'register' %}">зарегистрируйтесь</a> </h2>
+{% endblock %}

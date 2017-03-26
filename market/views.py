@@ -55,4 +55,4 @@ def received_orders(request):
         list = prepare_orders(orders)
         return render_to_response('market/received_orders.html', {'orders': list, 'id' : request.user.id})
     else:
-        return render_to_response('<html><body><h1>Здесь будет страница "недостаточно прав для просмотра"</h1></body></html>')
+        return render_to_response('please_login.html')
