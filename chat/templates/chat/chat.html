@@ -127,9 +127,15 @@ $.ajaxSetup({
 window.onload = function(){
     $('.chat-window').scrollTop($('.chat-window')[0].scrollHeight);
     $('#id_message').attr('placeholder', 'Введите сообщение');
-        $('html, body').animate({
+    $('html, body').animate({
         scrollTop: $('.chat-window').offset().top - 20
-    }, 'slow');
+    }, 'fast');
+    $('#id_message').keypress(function(e) {
+        if(e.which == 13) {
+            jQuery(this).blur();
+            jQuery('.btn').focus().click();
+        }
+    });
 };
 setInterval(AjaxCall, 200);
 
