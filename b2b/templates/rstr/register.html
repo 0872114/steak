@@ -23,3 +23,15 @@
 
 
 {% endblock %}
+
+{% block javascript %}
+
+<script>
+
+window.onload = function() {
+    $('#id_logo').removeClass('form-control');
+    $('#id_logo').attr('enctype', 'multipart/form-data');
+}
+</script>
+
+{% endblock %}

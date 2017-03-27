@@ -21,9 +21,17 @@
     background-color: #e6f2ff;
 }
 
-#id_message {
+#chat_message {
     width: 70%;
     margin: 20px;
+    margin-left: 15%;
+    align-items: center;
+}
+
+.chat-button {
+    margin: 10px;
+    margin-left: 40%;
+    margin-right: 10%;
 }
 
 .chat-window {

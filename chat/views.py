@@ -13,9 +13,12 @@ import json
 def AjaxView(request):
     last_id = request.GET.get(u'lastmsg_id', None)
     currentOrderId = request.GET.get(u'order', None)
-    msgs = ChatMessage.objects.filter(id__gt=int(last_id),order__id=int(currentOrderId))[:1]
-    result = iterations_ajax(request,msgs)
-    return JsonResponse(result)
+    if last_id:
+        msgs = ChatMessage.objects.filter(id__gt=int(last_id),order__id=int(currentOrderId))[:1]
+        result = iterations_ajax(request,msgs)
+        return JsonResponse(result)
+    else:
+        return JsonResponse({'error':'not loaded'})
 
 
 def ChatView(request, id=None):
@@ -35,11 +38,16 @@ def ChatView(request, id=None):
                     form.save()
                     return redirect('./')
             else:
+                user = request.user.id
                 msgs = ChatMessage.objects.filter(order__id=id)
                 args['msgs'] = iterations(request,msgs)
-                args['debug'] = request.user
-                args['debug2'] = request.user.id
-                return render_to_response('chat/chat.html', args)
+                if not args['msgs']:
+                    return render_to_response('chat/chat.html', args)
+                else:
+                    if args['msgs'][0]['order_sender'] == user or args['msgs'][0]['order_destination'] == user:
+                        return render_to_response('chat/chat.html', args)
+                    else:
+                        return render_to_response('please_login.html')
         else:
             return render_to_response('please_login.html')
 
@@ -52,7 +60,6 @@ def iterations(request,x):
             sender=msg.sender,
             sender_id = msg.sender.id,
             order = msg.order.id,
-            oder_destination = msg.order.destination.id,
             date=msg.date,
             message=msg.message,
             id=msg.id,
@@ -62,6 +69,12 @@ def iterations(request,x):
             usefull_shit['order_sender'] = msg.order.user.id
         except AttributeError:
             usefull_shit['order_sender'] = 0
+
+        try:
+            usefull_shit['order_destination'] = msg.order.destination.id
+        except AttributeError:
+            usefull_shit['order_destination'] = 0
+
         if usefull_shit['sender_id'] == request.user.id:
             usefull_shit['style'] = 'fpv'  # first person view
         else:
@@ -80,16 +93,22 @@ def iterations_ajax(request, x):
             sender=str(msg.sender),
             sender_id = str(msg.sender.id),
             order = str(msg.order.id),
-            oder_destination = msg.order.destination.id,
+            oder_destination = msg.order.destination.user.id,
             date=msg.date,
             message=msg.message,
             id=msg.id,
             style = ''
         )
         try:
-            usefull_shit['order_sender'] = msg.order.user.id
+            usefull_shit['order_sender'] = str(msg.order.user.id)
         except AttributeError:
             usefull_shit['order_sender'] = 0
+
+        try:
+            usefull_shit['order_destination'] = str(msg.order.destination.id)
+        except AttributeError:
+            usefull_shit['order_destination'] = 0
+
         if usefull_shit['sender_id'] == str(request.user.id):
             usefull_shit['style'] = 'fpv'  # first person view
         else:

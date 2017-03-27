@@ -5,6 +5,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
+#!python
+# -*- coding: utf8 -*-
 
 class Printer(User):
     user = models.OneToOneField(User, null=False)
@@ -15,9 +17,9 @@ class Printer(User):
     services = models.CharField(_(u'Услуги'), max_length=50)
     lat = models.FloatField(_(u'Широта'))
     lon = models.FloatField(_(u'Долгота'))
-    logo = models.ImageField(_(u'Логотип'), upload_to="printers", blank=True)
-    categories = models.ManyToManyField('Categories')
-    tags = models.ManyToManyField('Tags')
+    logo = models.ImageField(_(u'Логотип'), upload_to=".printers", blank=True)
+    categories = models.ManyToManyField('b2b.Categories')
+    tags = models.ManyToManyField('b2b.Tags')
 
 
     class Meta:

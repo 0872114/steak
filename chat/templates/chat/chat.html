@@ -1,7 +1,9 @@
 {%  extends 'base.html' %}
+{% load staticfiles %}
 
-
-
+{% block headertext %}
+    Обсудите заказ в реальном времени!
+{% endblock %}
 
 {% block content %}
 
@@ -22,15 +24,11 @@
 {% endif %}
 </div>
 
-    <h3> ==={% with msgs|last as last %}{{ last.message }}{% endwith %}==== </h3>
-
 <form method="POST" action="./">
 {% csrf_token %}
-    <h3 id="kek"> INPUT </h3>
 
    <input for="id_order" name="order" type="hidden" value="{{ order }}">
    <input for="id_sender" name="sender" type="hidden" value="{{ sender }}">
-
     <div id="chat_message">
     <p>{{ form.message }}</p>
 
@@ -38,25 +36,16 @@
     </div>
 </form>
 
-
-    {{ order }}
-    {{ sender }}
-
 {% endblock %}
 
 {% block javascript %}
 <script>
-    function MakeItWork(){
-            $("#id_message").addClass("form-control");
-        }
-window.onload = function(){MakeItWork()};
-
+/**
+ * Created by qed on 27.03.17.
+ */
 
 var ajax_id = '{% with msgs|last as last %}{{ last.id }}{% endwith %}';
 var ajax_order = '{% with msgs|last as last %}{{ last.order }}{% endwith %}';
-
-console.log(ajax_id);
-console.log(ajax_order);
 
 function get_id() {
             if (ajax_id == '{% with msgs|last as last %}{{ last.id }}{% endwith %}')
@@ -78,7 +67,6 @@ function get_order() {
 
 
 function AjaxCall() {
-    console.log(['azaza'])
    var foo = $.ajax({
     //type: 'POST',
     url:'{% url "chat_ajax" %}',
@@ -88,13 +76,10 @@ function AjaxCall() {
     },
     datatype: 'json',
     success: function(data) {
-        console.log(data);
-        console.log(data.style)
-        console.log(['ajax success']);
-        console.log(ajax_id);
+       if (data.error){
+           console.log(data.error);
+       }
        if (data.message) {
-            console.log(['working?']);
-           $('<p>data.message</p>').appendTo('.chat-window')
            $('<div class="msg new-msgs" id="msg_'+data.id+'"></div>').appendTo(".chat-window");
            $('#msg_' + data.id).addClass(data.style)
            $('<h5>' + data.sender + ' | ' + data.date + '</h5>').appendTo("#msg_"+data.id);
@@ -103,14 +88,11 @@ function AjaxCall() {
            $('</br id="'+ data.id +'">').appendTo("#text_"+data.id);
            $('.chat-window').scrollTop($('.chat-window')[0].scrollHeight);
            ajax_id = data.id;
-           console.log(ajax_id);
            ajax_order = data.order;
-           console.log(ajax_order);
  }
     },
     error: function() { console.log["error"] }
     });
-   //console.log(foo)
 }
 
 function getCookie(name) {
@@ -142,19 +124,14 @@ $.ajaxSetup({
     }
 });
 
-window.onload = function(){$('.chat-window').scrollTop($('.chat-window')[0].scrollHeight);};
+window.onload = function(){
+    $('.chat-window').scrollTop($('.chat-window')[0].scrollHeight);
+    $('#id_message').attr('placeholder', 'Введите сообщение');
+        $('html, body').animate({
+        scrollTop: $('.chat-window').offset().top - 20
+    }, 'slow');
+};
 setInterval(AjaxCall, 200);
+
 </script>
-
-
 {% endblock %}
-
-<!--            <p> Debug Sender: '{{ msg.sender }}'</p>
-            <p> Debug Order: {{ msg.order }}</p>
-            <p> Debug Order_Sendr: {{ msg.oder_sender }}</p>
-            <p> Debug Order_Dest: {{ msg.order_destination }}</p>
-            <p> Debug Id: '{{ msg.id }}'</p>
-            <p> Debug1 user: '{{ debug }}'</p>
-            <p> Debug2 id: '{{ debug2 }}'</p>
-            <p> Debug Style: {{ msg.style }}</p>
-/!-->
