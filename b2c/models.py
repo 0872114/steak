@@ -46,6 +46,7 @@ class Order(models.Model):
     )
     tags = models.ManyToManyField('b2b.Tags')
     market = models.BooleanField(_(u'На рынке заявок'), default=False)
+    responses = models.ManyToManyField('b2b.Printer', blank=True, related_name='order_responses')
 
     class Meta:
         verbose_name = _(u'Заявка')

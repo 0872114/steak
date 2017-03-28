@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block headtitle %}
-    Рынок заказов
+    Рынок заявок
 {% endblock %}
 
 {% block content %}
@@ -27,16 +27,22 @@
                 <td> {{ order.service }} </td>
                 <td> {{ order.comment }} </td>
             </tr >
-            <tr
-                    {% if order.taken == 1 %}
-                        class="tr-market-grey"
-                    {% endif %}
-            >
+            <tr>
                 <td colspan="6">
                     {% if order.taken == 1 %}
                         <b>Заказ назначен.</b>
                     {% else %}
-                        <b>Здесь будет количество отзывов и кнопки "откликнуться" и "отписать комментарий ".</b>
+                        {% if printer_id in order.responses %}
+                            <b>Вы откликнулись на заказ</b>
+                        {% else %}
+                            <form method='post' action="{% url 'market_order' id=order.id  %}">
+                                {% csrf_token %}
+                                <input type="hidden" id="id_responder" name="responder" value="{{ printer_id }}" required>
+                                <input type="hidden" id="id_response_order" name="response_order" value="{{ order.id }}" required>
+                                <button type="submit" class="btn btn-info">Откликнуться</button>
+                            </form>
+                        {% endif %}
+                        <a type="button" class="btn btn-info" href="{% url 'market_order' id=order.id  %}">Перейти к заказу</a>
                     {% endif %}
                 </td>
             </tr>

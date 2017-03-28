@@ -1,0 +1,20 @@
+.comment {
+    width: 90%;
+    padding: 10px;
+    margin: 20px;
+    border-width: thin;
+    border-color: #f4f4f4;
+    border-radius: 20px;
+    clear: both;
+    float: left;
+    background-color: #ebebeb;
+}
+.tr-market-grey td {
+    background-color: #e6e6e6;
+}
+.tr-market-green td {
+    background-color: #99ffbb;
+}
+.tr-market-red td {
+    background-color: #ff6666;
+}

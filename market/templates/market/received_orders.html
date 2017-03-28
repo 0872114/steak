@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 
 {% block headtitle %}
-    Мои заказы
+    Полученные заявки
 {% endblock %}
 
 {% block content %}
-    <h1> {{ id }} </h1>
     <table class="table table-bordered">
         <tr>
             <th> Время </th>
@@ -26,7 +25,7 @@
                 <td> {{ order.service }} </td>
                 <td> {{ order.comment }} </td>
             </tr>
-            <tr {% if order.tr_class %} class="tr_class" {% endif %}>
+            <tr>
                 <td colspan="6"> <a href="">ссылка</a> </td>
             </tr>
         {% endfor %}

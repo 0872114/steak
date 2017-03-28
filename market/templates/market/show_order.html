@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block headtitle %}
+    Посмотреть заявку
+{% endblock %}
+
+{% block content %}
+    {% if error %}
+
+    {% else %}
+        <table class="table table-bordered">
+            <tr>
+                <th> Время </th>
+                <th> Клиент </th>
+                <th> Почта </th>
+                <th> Статус </th>
+                <th> Заголовок </th>
+                <th> Комментарий </th>
+            </tr>
+            <tr
+                    {% if order.taken == 1 %}
+                        class="tr-market-grey"
+                    {% endif %}
+            >
+                <td> {{ order.datetime |date:'Y-m-d H:i' }} </td>
+                <td> {{ order.sender }} </td>
+                <td> {{ order.email }} </td>
+                <td> {{ order.status }} </td>
+                <td> {{ order.service }} </td>
+                <td> {{ order.comment }} </td>
+            </tr >
+            <tr>
+                <td colspan="6">
+                    {% if order.taken == 1 %}
+                        <b>Заказ назначен.</b>
+                    {% else %}
+                        {% if printer.id in order.responses %}
+                            <b>Вы откликнулись на заказ</b>
+                        {% else %}
+                            <form method='post' action="{% url 'market_order' id=order.id  %}">
+                                {% csrf_token %}
+                                <input type="hidden" id="id_responder" name="responder" value="{{ printer.id }}" required>
+                                <input type="hidden" id="id_response_order" name="response_order" value="{{ order.id }}" required>
+                                <button type="submit" class="btn btn-info">Откликнуться</button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        {% if comments %}
+            <div>
+            {% for comment in comments %}
+                <div class="comment">
+                    <h5>{{ comment.sender }} | {{ comment.datetime |date:'Y-m-d H:i' }}</h5>
+                    <div>
+                        <p>
+                            {{ comment.comment }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+        {% if order.taken == 0 %}
+            <div  class="comment">
+                <form method='post' action="{% url 'market_order' id=order.id  %}">
+                    {% csrf_token %}
+                    <input type="hidden" id="id_sender" name="sender" value="{{ printer.id }}" required>
+                    <input type="hidden" id="id_order" name="order" value="{{ order.id }}" required>
+                    <label for="id_comment">Добавить комментарий:</label>
+                    {{ form.comment }}
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

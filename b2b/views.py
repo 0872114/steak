@@ -18,6 +18,7 @@ def register(request):
         if printer_form.is_valid():
             printer_form.logo = request.FILES
             printer_form.save()
+            printer_form.save_m2m()
         else:
             args['printers'] = printer_form
     return render_to_response('rstr/register.html', args)
