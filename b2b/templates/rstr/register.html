@@ -3,12 +3,12 @@
 <h1>Регистрация</h1>
 
 
-    <div class="bloke-register col-xs-6 col-sm-6">
+    <div class="bloke-register-b2b col-xs-6 col-sm-6">
 <form enctype="multipart/form-data" method="post">
 {% csrf_token %}
 <dl class="register">
 
-{% for field in printers %}
+{% for field in printers.visible_fields %}
     <dt>{{ field.label_tag }}</dt>
     <dd class="clearfix">{{ field }}
     {% if field.help_text %}<div class="clearfix">{{ field.help_text }}</div>{% endif %}
@@ -16,22 +16,105 @@
     </dd>
 {% endfor %}
 
+{% for field in printers.hidden_fields %}
+     <div style="display:none;">{{ field }}</div>
+{% endfor %}
+
+
+<div id="floating-panel">
+      <input id="address" type="textbox", class="form-control" value="Москва, Россия">
+      <input id="submit-geocode" type="button" value="Проверить адресс">
+</div>
+    <div id="map"></div>
+
 </dl>
+
 <input type="submit" value="Зарегистрироваться" class="clearfix btn btn-success logit">
 </form>
+
     </div>
+
 
 
 {% endblock %}
 
 {% block javascript %}
 
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyCIC6deUmipx1i53t2ncZlP7MUTeQ52qvY&language=ru&region=RU"></script>
+
+
 <script>
+
+
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 8,
+    center: {lat: 55.755826, lng: 37.6173}
+  });
+  var geocoder = new google.maps.Geocoder();
+  var marker = new google.maps.Marker({
+        map: map,
+        position: {lat: 55.755826, lng: 37.6173},
+        draggable:true
+      });
+
+   google.maps.event.addListener(marker, 'dragend', function()
+{
+    geocodePosition(marker.getPosition());
+});
+
+  document.getElementById('submit-geocode').addEventListener('click', function() {
+    geocodeAddress(geocoder, map, marker);
+  });
+}
+
+function geocodeAddress(geocoder, resultsMap, marker) {
+  var address = document.getElementById('address').value;
+  geocoder.geocode({'address': address}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      resultsMap.setCenter(results[0].geometry.location);
+      marker.setPosition(results[0].geometry.location);
+      $('#id_address').val(results[0].formatted_address);
+      $('#id_lat').val(results[0].geometry.location.lat);
+      $('#id_lon').val(results[0].geometry.location.lng);
+      console.log(results[0].formatted_address);
+    } else {
+      alert('Такого адреса не существует: ' + status);
+    }
+  });
+}
+
+function geocodePosition(pos)
+{
+   geocoder = new google.maps.Geocoder();
+   geocoder.geocode
+    ({
+        latLng: pos
+    },
+        function(results, status)
+        {
+            if (status == google.maps.GeocoderStatus.OK)
+            {
+                $("#address").val(results[0].formatted_address);
+                $("#mapErrorMsg").hide(100);
+                $('#id_address').val(results[0].formatted_address);
+                $('#id_lat').val(results[0].geometry.location.lat);
+                $('#id_lon').val(results[0].geometry.location.lng);
+            }
+            else
+            {
+                $("#mapErrorMsg").html('Такого адреса не существует: '+status).show(100);
+            }
+        }
+    );
+}
 
 window.onload = function() {
     $('#id_logo').removeClass('form-control');
-    $('#id_logo').attr('enctype', 'multipart/form-data');
+    initMap();
 }
 </script>
+
+
 
 {% endblock %}

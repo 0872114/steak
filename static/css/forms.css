@@ -1,3 +1,11 @@
+.bloke-register-b2b {
+    margin-left: 26%;
+    position: relative;
+    margin-bottom: 200px;
+    clear: both;
+}
+
+
 .bloke-register {
     margin-left: 26%;
     position: relative;
@@ -42,4 +50,31 @@
 
 .plchldr {
     text-align: center;
+}
+
+html, body, #map {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+#floating-panel, #map {
+    position: relative;
+}
+
+#map {
+    width: 450px;
+    height: 200px;
+}
+
+#address {
+    width: 450px;
+    margin: 5px;
+    margin-left: 0px;
+}
+
+#submit-geocode {
+    margin: 5px;
+    margin-left: 0px;
 }

@@ -27,8 +27,8 @@
 <form method="POST" action="./">
 {% csrf_token %}
 
-   <input for="id_order" name="order" type="hidden" value="{{ order }}">
-   <input for="id_sender" name="sender" type="hidden" value="{{ sender }}">
+   <input id="id_order" name="order" type="hidden" value="{{ order }}">
+   <input id="id_sender" name="sender" type="hidden" value="{{ sender }}">
     <div id="chat_message">
     <p>{{ form.message }}</p>
 

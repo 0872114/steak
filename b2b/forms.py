@@ -1,5 +1,6 @@
 from models import *
 from django.contrib.auth.forms import UserCreationForm
+from django import forms
 
 #!python
 # -*- coding: utf8 -*-
@@ -8,8 +9,8 @@ from django.contrib.auth.forms import UserCreationForm
 class b2bCForm(UserCreationForm):
     class Meta:
         model = Printer
-        fields = ('username', 'password1', 'password2', 'name', 'email', 'address', 'phone', 'website', 'services',
-                  'lat', 'lon', 'logo', 'categories', 'tags')
+        fields = ('username', 'password1', 'address', 'password2', 'name', 'email', 'phone', 'website', 'services',
+                   'lat', 'lon', 'logo', 'categories', 'tags')
 
     def __init__(self, *args, **kwargs):
         super(b2bCForm, self).__init__(*args, **kwargs)
@@ -24,3 +25,6 @@ class b2bCForm(UserCreationForm):
             self.fields[field].widget.attrs.update({
                 "class": classes
             })
+        self.fields['address'].widget = forms.HiddenInput()
+        self.fields['lat'].widget = forms.HiddenInput()
+        self.fields['lon'].widget = forms.HiddenInput()
