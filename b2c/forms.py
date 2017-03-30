@@ -29,3 +29,13 @@ class OrderForm(ModelForm):
         self.fields["tags"].widget = CheckboxSelectMultiple()
         self.fields["tags"].queryset = Tags.objects.all()
         self.fields["destination"].required = False
+
+class StatusForm(ModelForm):
+    class Meta:
+        model = Order
+        fields = ['status',]
+    def __init__(self, *args, **kwargs):
+        super(StatusForm, self).__init__(*args, **kwargs)
+        self.fields['status'].widget.attrs.update({
+            "onchange": "this.form.submit()"
+        })

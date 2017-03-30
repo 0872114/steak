@@ -32,17 +32,21 @@
                     {% if order.taken == 1 %}
                         <b>Заказ назначен.</b>
                     {% else %}
+                        <b>Откликов: {{ order.responses|length }}. </b>
                         {% if printer_id in order.responses %}
-                            <b>Вы откликнулись на заказ</b>
+                            <b>Вы откликнулись на заказ. </b>
                         {% else %}
-                            <form method='post' action="{% url 'market_order' id=order.id  %}">
+
+                            <button form="submit_form" type="submit" class="btn btn-info">Откликнуться</button>
+                        {% endif %}
+                    {% endif %}
+                        <a type="button" class="btn btn-info" href="{% url 'market_order' id=order.id  %}">Перейти к заказу</a>
+                    {% if printer_id not in order.responses %}
+                        <form id="submit_form" method='post' action="{% url 'market_order' id=order.id  %}">
                                 {% csrf_token %}
                                 <input type="hidden" id="id_responder" name="responder" value="{{ printer_id }}" required>
                                 <input type="hidden" id="id_response_order" name="response_order" value="{{ order.id }}" required>
-                                <button type="submit" class="btn btn-info">Откликнуться</button>
-                            </form>
-                        {% endif %}
-                        <a type="button" class="btn btn-info" href="{% url 'market_order' id=order.id  %}">Перейти к заказу</a>
+                        </form>
                     {% endif %}
                 </td>
             </tr>

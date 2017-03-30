@@ -1,12 +1,13 @@
 #!python
 # -*- coding: utf8 -*-
 
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, render
 from b2c.models import Order
 from b2b.models import Printer
 from forms import *
 from django.utils import timezone
 from django.template.context_processors import csrf
+from b2c.forms import StatusForm
 
 def bidmarket(request):
     if request.user.id:
@@ -20,6 +21,8 @@ def bidmarket(request):
             printer_user = Printer.objects.get(user__id=user)
             args['printer_id'] = printer_user.id
         except AttributeError:
+            return render_to_response('please_login.html')
+        except Printer.DoesNotExist:
             return render_to_response('please_login.html')
         try:
             orders = Order.objects.filter(market=True).exclude(user__isnull=True).order_by('datetime').reverse()[:100]
@@ -43,20 +46,35 @@ def show_order(request, id=None):
     if (id is None):
         return redirect('./')
     else:
+        args = {}
         if request.user.id:
             user = request.user.id
-            #Find out if an order exists
+            #If comment added
             if 'comment' in request.POST:
                 form = MarketCommentForm(request.POST)
                 if form.is_valid():
                     form.save()
                     return redirect('market_order', id=id)
+            #If response added
             elif 'response_order' in request.POST:
                 current = Order.objects.get(id=int(request.POST['response_order']))
                 current.responses.add(Printer.objects.get(id=int(request.POST['responder'])))
+            #If status changed
+            elif 'status' in request.POST:
+                instance = Order.objects.get(id=int(id))
+                form = StatusForm(request.POST, instance=instance)
+                if form.is_valid():
+                    form.save()
+                    return redirect('market_order', id=id)
+            # Find out if an order exists
             try:
                 order = Order.objects.get(id=int(id))
-                args = {}
+                #If current user got this order
+                try:
+                    if order.destination.user.id == user:
+                        args['select'] = StatusForm(request.POST or None, instance=order)
+                except AttributeError:
+                    pass
                 args['comments'] = []
                 #Find current user's typography
                 try:
@@ -85,7 +103,6 @@ def show_order(request, id=None):
                 tuple(args['comments'])
                 args.update(csrf(request))
                 order_sorted = sort_order(order)
-                args['form'] = MarketCommentForm
                 args['order'] = order_sorted
                 return render_to_response('market/show_order.html', args)
             except Order.DoesNotExist:
@@ -111,10 +128,9 @@ def sort_order(order):
     )
     #Get the tuple of respondents
     responses = order.responses.values()
-    order_data['responses'] = []
+    order_data['responses'] = {}
     for response in responses:
-        order_data['responses'].append(response['id'])
-    tuple(order_data['responses'])
+        order_data['responses'][response['id']] = response
 
     # Find out if order.destination.id exists (if an order is taken)
     try:
