@@ -1,0 +1,16 @@
+body{margin-top:20px;}
+.fa-fw {width: 2em;}
+
+.container-acc {
+    padding-right: 15px;
+    float: left;
+}
+
+.row {
+    clear: both;
+}
+
+.fa-fw {
+    margin: 5px;
+}
+

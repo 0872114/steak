@@ -36,6 +36,7 @@ urlpatterns = [
     url(r'^market/', include('market.urls')),
     url(r'^b2b/', include('b2b.urls')),
     url(r'^chat/', include('chat.urls')),
+    url(r'^accounts/', include('account.urls')),
 ]
 
 if settings.DEBUG:

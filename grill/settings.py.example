@@ -63,6 +63,7 @@ PROJECT_APPS = [
     'transactions',
     'market',
     'chat',
+    'account',
 ]
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
@@ -93,7 +94,6 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.core.context_processors.auth',
             ],
         },
     },

@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response, redirect
 from models import *
 from forms import ChatMessageForm
 from django.http import JsonResponse
+from django.shortcuts import render
 from django.db.models import Q
 import json
 
@@ -23,7 +24,7 @@ def AjaxView(request):
 
 def ChatView(request, id=None):
     if id is None:
-        return redirect('./')
+        return render(request, 'please_login.html')
     else:
         args = {}
         args.update(csrf(request))
@@ -42,14 +43,14 @@ def ChatView(request, id=None):
                 msgs = ChatMessage.objects.filter(order__id=id)
                 args['msgs'] = iterations(request,msgs)
                 if not args['msgs']:
-                    return render_to_response('chat/chat.html', args)
+                    return render(request, 'please_login.html')
                 else:
                     if args['msgs'][0]['order_sender'] == user or args['msgs'][0]['order_destination'] == user:
-                        return render_to_response('chat/chat.html', args)
+                        return render(request,'chat/chat.html', args)
                     else:
-                        return render_to_response('please_login.html')
+                        return render(request, 'please_login.html')
         else:
-            return render_to_response('please_login.html')
+            return render(request, 'please_login.html')
 
 
 
