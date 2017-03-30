@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
 from paypal.standard.forms import PayPalPaymentsForm
+from django.shortcuts import render
 
 
 def paypal_view(request):
@@ -17,6 +18,6 @@ def paypal_view(request):
 
     form = PayPalPaymentsForm(initial=paypal_dict)
     context = {'form' : form}
-    return render_to_response('transactions/payment.html', context)
+    return render(request,'transactions/payment.html', context)
 
 

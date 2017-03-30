@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'printing1/', printing1, name="printing1"),
     url(r'printing2/', printing2, name="printing2"),
     url(r'printing3/', printing3, name="printing3"),
+    url(r'logout/$', logout_view, name="logout"),
 ]

@@ -5,6 +5,8 @@
 from django.shortcuts import render_to_response, redirect
 from forms import b2bCForm
 from django.template.context_processors import csrf
+from django.shortcuts import render
+
 
 
 
@@ -21,7 +23,7 @@ def register(request):
             printer_form.save_m2m()
         else:
             args['printers'] = printer_form
-    return render_to_response('rstr/register.html', args)
+    return render(request, 'rstr/register.html', args)
 
 
 

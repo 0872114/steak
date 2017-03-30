@@ -6,6 +6,7 @@ from forms import OrderForm
 from django.template.context_processors import csrf
 from b2b.models import Printer, Tags
 from django.db.models import Q
+from django.shortcuts import render
 
 
 def map(request, template='b2c/map.html'):
@@ -56,11 +57,11 @@ def map(request, template='b2c/map.html'):
         args['printers'].append(marker)
     tuple(args['printers'])
 
-    return render_to_response(template, args)
+    return render(request, template, args)
 
 def market(request):
     if request.user.id:
         return map(request, template='b2c/market.html')
     else:
-        return render_to_response('please_login.html')
+        return render(request, 'please_login.html')
 

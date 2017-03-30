@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response, redirect
 from forms import MyUserCreationForm
 from django.contrib import auth
 from django.template.context_processors import csrf
+from django.shortcuts import render
 
 
 def register(request):
@@ -17,4 +18,4 @@ def register(request):
             return redirect('/')
         else:
             args['form'] = newuser_form
-    return render_to_response('registration/register.html', args)
+    return render(request,'registration/register.html', args)

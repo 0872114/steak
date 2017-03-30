@@ -49,13 +49,23 @@
                 </ul>
                 </nav>
 
-                <div class="col-sm-offset-2">
+                {% if user.is_authenticated %}
 
-                <a type="button" class="btn btn-success reg-btn" href="{% url 'register' %}">Регистрация</a>
-                <a type="button" class="btn btn-info reg-btn" href="{% url 'login' %}">Войти</a>
+                    <div class="col-sm-offset-2">
+                    <a type="button" class="btn btn-success reg-btn" href="{% url 'register' %}">Личный кабинет</a>
+                    <a type="button" class="btn btn-info reg-btn" href="{% url 'logout' %}">Выйти</a>
+                    </div>
+
+                {% else %}
+
+                    <div class="col-sm-offset-2">
+
+                    <a type="button" class="btn btn-success reg-btn" href="{% url 'register' %}">Регистрация</a>
+                    <a type="button" class="btn btn-info reg-btn" href="{% url 'login' %}">Войти</a>
+
+                {% endif %}
 
                 </div>
-
             </div>
         </header>
       {% endblock %}

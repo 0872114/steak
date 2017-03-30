@@ -1,14 +1,15 @@
 #! python
 # -- coding: utf-8 ---
 
-
+from django.contrib import auth
 from django.shortcuts import render_to_response, redirect
 from models import Entry
+from django.shortcuts import render
 
 def main_page(request, titles=u'Главная'):
     contents = Entry.objects.get(title=titles).short_text
     context = {'short_text' :  contents, 'title' : titles}
-    return render_to_response('content/main_page.html', context)
+    return render(request, 'content/main_page.html', context)
 
 def about(request):
     return main_page(request, titles=u'О нас')
@@ -21,3 +22,8 @@ def printing2(request):
 
 def printing3(request):
     return main_page(request, titles=u'О печати 3')
+
+def logout_view(request):
+  auth.logout(request)
+  # Redirect to a success page.
+  return main_page(request, titles=u'Главная')
