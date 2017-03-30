@@ -39,3 +39,13 @@ class StatusForm(ModelForm):
         self.fields['status'].widget.attrs.update({
             "onchange": "this.form.submit()"
         })
+
+class SetDestinationForm(ModelForm):
+    class Meta:
+        model = Order
+        fields = ['destination']
+    def __init__(self, *args, **kwargs):
+        super(SetDestinationForm, self).__init__(*args, **kwargs)
+        self.fields['destination'].widget.attrs.update({
+            "onchange": "this.form.submit()"
+        })

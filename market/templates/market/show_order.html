@@ -12,9 +12,9 @@
             <tr>
                 <th> Время </th>
                 <th> Клиент </th>
-                {% if select %}<th> Номер телефона </th>{% endif %}
+                {% if select or is_private %}<th> Номер телефона </th>{% endif %}
                 <th> Почта </th>
-                {% if select %}<th> Статус </th>{% endif %}
+                {% if select or is_private %}<th> Статус </th>{% endif %}
                 <th> Заголовок </th>
                 <th> Комментарий </th>
             </tr>
@@ -25,27 +25,47 @@
             >
                 <td> {{ order.datetime |date:'Y-m-d H:i' }} </td>
                 <td> {{ order.sender }} </td>
-                {% if select %}<td> {{ order.phone }} </td>{% endif %}
+                {% if select or is_private %}<td> {{ order.phone }} </td>{% endif %}
                 <td> {{ order.email }} </td>
                 {% if select %}<td> <form action="{% url 'market_order' id=order.id  %}" method="POST">{% csrf_token %} {{ select.status }} </form></td>{% endif %}
+                {% if is_private %}<td> {{ order.status }} </td>{% endif %}
                 <td> {{ order.service }} </td>
                 <td> {{ order.comment }} </td>
             </tr >
             <tr>
                 <td colspan="7">
                     {% if order.taken == 1 %}
-                        {% if select %}<b> Вы назначены исполнителем. </b>{% else %}<b>Заказ назначен.</b>{% endif %}
-                    {% else %}
-                        {% if printer.id in order.responses %}
-                            <b>Вы откликнулись на заказ</b>
+                        {% if select %}
+                            <b> Вы назначены исполнителем. </b> <a type="button" class="btn btn-info" href="{% url 'chat' id=order.id  %}">Перейти к чату</a>
                         {% else %}
-                            <form method='post' action="{% url 'market_order' id=order.id  %}">
-                                {% csrf_token %}
-                                <input type="hidden" id="id_responder" name="responder" value="{{ printer.id }}" required>
-                                <input type="hidden" id="id_response_order" name="response_order" value="{{ order.id }}" required>
-                                <button type="submit" class="btn btn-info">Откликнуться</button>
-                            </form>
+                            <b>Заказ назначен.</b>
                         {% endif %}
+                    {% else %}
+                        <b>Откликов: {{ order.responses|length }}. </b>
+                        {% if not is_private %}
+                            {% if printer.id in order.responses %}
+                                <b>Вы откликнулись на заказ</b>
+                            {% else %}
+                                <form method='post' action="{% url 'market_order' id=order.id  %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" id="id_responder" name="responder" value="{{ printer.id }}" required>
+                                    <input type="hidden" id="id_response_order" name="response_order" value="{{ order.id }}" required>
+                                    <button type="submit" class="btn btn-info">Откликнуться</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                    {% if is_private %}
+                        <form action="{% url 'private_one' id=order.id  %}" method="POST">
+                            {% csrf_token %}
+                            <label for="id_destination">Исполнитель: </label>
+                            <select id="id_destination" name="destination" onchange="this.form.submit()">
+                                <option value="" selected="selected">---------</option>
+                                {% for key, val in order.responses.items %}
+                                <option value="{{ key }}" {% if destination_id == key%}selected="selected" {% endif %}>{{ val.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
                     {% endif %}
                 </td>
             </tr>
@@ -64,7 +84,7 @@
             {% endfor %}
             </div>
         {% endif %}
-        {% if order.taken == 0 %}
+        {% if order.taken == 0 and not is_private %}
             <div  class="comment">
                 <form method='post' action="{% url 'market_order' id=order.id  %}">
                     {% csrf_token %}
