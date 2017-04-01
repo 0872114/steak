@@ -21,12 +21,31 @@
                 <td> {{ order.sender }} </td>
                 <td> {{ order.phone }} </td>
                 <td> {{ order.email }} </td>
-                {% if select %}<td> <form action="{% url 'market_order' id=order.id  %}" method="POST">{% csrf_token %} {{ select.status }} </form></td>{% endif %}
+                {% if select %}
+                    <td>
+                        <form action="{% url 'market_order' id=order.id  %}" method="POST">
+                        {% csrf_token %}
+                        {{ select.status }}
+                        </form>
+                    </td>
+                {% endif %}
                 <td> {{ order.service }} </td>
                 <td> {{ order.comment }} </td>
             </tr>
             <tr>
-                <td colspan="7">{% if order.destination %}<a type="button" class="btn btn-info" href="{% url 'chat' id=order.id  %}">Перейти к чату</a> {% endif %}<a type="button" class="btn btn-info" href="{% url 'market_order' id=order.id  %}">Перейти к заказу</a></td>
+                <td colspan="7">
+                    {% if order.destination %}
+                        <a type="button" class="btn btn-info" href="{% url 'chat' id=order.id  %}">Перейти к чату</a>
+                    {% endif %}
+                        <a type="button" class="btn btn-info" href="
+                        {% if private %}
+                            {% url 'private_one' id=order.id  %}
+                        {% else %}
+                            {% url 'market_order' id=order.id  %}
+                        {% endif %}">
+                        Перейти к заказу
+                        </a>
+                </td>
             </tr>
         {% endfor %}
     </table>
