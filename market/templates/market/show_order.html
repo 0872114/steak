@@ -36,9 +36,11 @@
                 <td colspan="7">
                     {% if order.taken == 1 %}
                         {% if select %}
-                            <b> Вы назначены исполнителем. </b> <a type="button" class="btn btn-info" href="{% url 'chat' id=order.id  %}">Перейти к чату</a>
+                            <b> Вы назначены исполнителем. </b>
+                        <a type="button" class="btn btn-info" href="{% url 'chat' id=order.id  %}">Перейти к чату</a>
                         {% else %}
                             <b>Заказ назначен.</b>
+                            <a type="button" class="btn btn-info" href="{% url 'chat' id=order.id  %}">Перейти к чату</a>
                         {% endif %}
                     {% else %}
                         <b>Откликов: {{ order.responses|length }}. </b>
