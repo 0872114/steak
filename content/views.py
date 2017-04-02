@@ -7,7 +7,10 @@ from models import Entry
 from django.shortcuts import render
 
 def main_page(request, titles=u'Главная'):
-    contents = Entry.objects.get(title=titles).short_text
+    try:
+        contents = Entry.objects.get(title=titles).short_text
+    except Entry.DoesNotExist:
+        return redirect('map')
     context = {'short_text' :  contents, 'title' : titles}
     return render(request, 'content/main_page.html', context)
 
