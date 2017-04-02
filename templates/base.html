@@ -1,5 +1,5 @@
-
-	{% load staticfiles %}
+{% load staticfiles %}
+{% load flatpages %}
 
 <!DOCTYPE html>
 <html>
@@ -41,13 +41,24 @@
                         <li><a href="{% url 'market' %}">Найти заказ</a></li>
                             <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">О печати<span class="caret"></span></a>
-                              <ul class="dropdown-menu" role="menu">
-                                <li><a href="{% url 'printing1' %}">Ссылка1</a></li>
-                                <li><a href="{% url 'printing2' %}">Ссылка2</a></li>
-                                <li><a href="{% url 'printing3' %}">Ссылка3</a></li>
-                              </ul>
+
+
+                                {% get_flatpages "/printing/" as printpages %}
+                                <ul class="dropdown-menu" role="menu">
+                                    {% for page in printpages %}
+                                        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+
+
                             </li>
-                        <li><a href="{% url 'about' %}">О нас</a></li>
+
+                            {% get_flatpages "/page/" as aboutpages %}
+                                {% for page in aboutpages %}
+                                    <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+
                 </ul>
                 </nav>
 
