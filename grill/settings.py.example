@@ -33,6 +33,7 @@ SECRET_KEY = 'q6rgy&15ujf)l3buo_p5i7d%-z(0tl0%d1y5p_2(q8_2wn%!)e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+SITE_ID = 1
 
 ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1', '188.120.242.176']
 
@@ -57,18 +58,22 @@ PROJECT_APPS = [
     'b2c',
     'b2b',
     'logit',
-    'content',
     'redactor',
     'paypal.standard.ipn',
     'transactions',
+    'content',
     'market',
     'chat',
     'account',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
+    'mypages'
 ]
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -159,3 +164,5 @@ REDACTOR_OPTIONS = {'lang': 'ru'}
 # PAYPAL options
 
 PAYPAL_TEST = True
+
+SITE_ID = 1
