@@ -1,16 +1,41 @@
 body{margin-top:20px;}
 .fa-fw {width: 2em;}
 
-.container-acc {
+acc {
     padding-right: 15px;
+    margin-bottom: 100px;
+    clear: both;
+    overflow: auto;
+}
+
+.menus {
     float: left;
+    clear: both;
 }
 
 .row {
-    clear: both;
+    display: block;
 }
 
 .fa-fw {
     margin: 5px;
 }
 
+.profile-table {
+    float: right;
+}
+
+.forms {
+    display: inline-block;
+    clear: both;
+    width: 50%;
+    height: 100%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 200px;
+}
+
+.pass-change {
+    margin-top: 15px;
+    width: 70%;
+}

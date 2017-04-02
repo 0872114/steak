@@ -1,0 +1,20 @@
+{% extends "account/personal_account.html" %}
+
+{% block account %}
+
+<form method="post" action="" class="form-group logit-group">
+
+<div class="profile-table">
+{% for field in form %}
+    <dt>{{ field.label_tag }}</dt>
+    <dd class="clearfix">{{ field }}
+    {% if field.help_text %}<div class="clearfix">{{ field.help_text }}</div>{% endif %}
+    {% if field.errors %}<div class="myerrors clearfix">{{ field.errors }}</div>{% endif %}
+    </dd>
+{% endfor %}
+</div>
+    <input type="submit" value="Изменить" class="btn btn-success logit">
+
+</form>
+
+{% endblock %}

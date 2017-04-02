@@ -25,7 +25,7 @@
 </form>
     </div>
 
-
+{% block javascript %}
     <script>
 function MakeItWork(){
             $("#id_username").attr('placeholder', 'Имя пользователя');
@@ -44,3 +44,4 @@ window.onload = function(){MakeItWork()}
 
 {% endblock %}
 
+{% endblock %}
