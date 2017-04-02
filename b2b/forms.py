@@ -9,7 +9,7 @@ from django import forms
 class b2bCForm(UserCreationForm):
     class Meta:
         model = Printer
-        fields = ('username', 'password1', 'address', 'password2', 'name', 'email', 'phone', 'website', 'services',
+        fields = ('username', 'password1', 'address', 'password2', 'name', 'first_name', 'last_name', 'email', 'phone', 'website', 'services',
                    'lat', 'lon', 'logo', 'categories', 'tags')
 
     def __init__(self, *args, **kwargs):

@@ -4,7 +4,7 @@
 
 <form enctype="multipart/form-data" method="post">
 {% csrf_token %}
-<div class="profile-table col-md-3">
+<div class="profile-table">
 {% for field in form.visible_fields %}
     <dt>{{ field.label_tag }}</dt>
     <dd class="clearfix">{{ field }}
@@ -23,7 +23,7 @@
 
  <div id="floating-panel">
       <input id="address" type="textbox", class="form-control" value="Москва, Россия">
-      <input id="submit-geocode" type="button" value="Проверить адресс">
+      <input id="submit-geocode" type="button" value="Проверить адрес">
 </div>
     <div id="map"></div>
 

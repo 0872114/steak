@@ -31,6 +31,8 @@ def bidmarket(request):
             return render(request, 'please_login.html')
         list = prepare_orders(orders)
         args['orders'] = list
+        args['is_printer'] = True
+        args['page'] = 'market_orders'
         return render(request, 'market/market.html', args)
     else:
         return render(request, 'please_login.html')
@@ -40,7 +42,7 @@ def received_orders(request):
     if request.user.id:
         orders = Order.objects.filter(destination__user_id=request.user.id).order_by('datetime').reverse()
         list = prepare_orders(orders)
-        return render(request, 'market/received_orders.html', {'orders': list, 'id': request.user.id})
+        return render(request, 'market/received_orders.html', {'orders': list, 'id': request.user.id, 'is_printer': True, 'page': 'my_orders'})
     else:
         return render(request, 'please_login.html')
 
@@ -108,6 +110,8 @@ def show_order(request, id=None):
                 order_sorted = sort_order(order)
                 args['order'] = order_sorted
                 args['form'] = MarketCommentForm
+                args['is_printer'] = True
+                args['page'] = 'market_order'
                 return render(request, 'market/show_order.html', args)
             except Order.DoesNotExist:
                 return render(request, 'market/show_order.html',
@@ -120,7 +124,7 @@ def private_all(request):
     if request.user.id:
         orders = Order.objects.filter(user_id=request.user.id).order_by('datetime').reverse()
         list = prepare_orders(orders)
-        return render(request, 'market/received_orders.html', {'orders': list, 'id': request.user.id, 'private': True})
+        return render(request, 'market/received_orders.html', {'orders': list, 'id': request.user.id, 'private': True, 'page': 'private_all'})
     else:
         return render(request, 'please_login.html')
 
@@ -160,6 +164,7 @@ def private_one(request, id=None):
                     tuple(args['comments'])
                     args.update(csrf(request))
                     args['destination'] = SetDestinationForm(instance=order)
+                    args['page'] = 'private_one'
                     try:
                         args['destination_id'] = order.destination.id
                     except AttributeError:

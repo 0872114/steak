@@ -25,6 +25,7 @@ def slave_account(request):
             form.save()
             return redirect('./')
     args['form'] = UpdateProfile(request.POST or None, instance=instance)
+    args['page'] = 'user_data'
     return render(request, 'account/slave.html', args)
 
 def master_account(request):
@@ -37,6 +38,7 @@ def master_account(request):
             form.save()
             return redirect('./')
     args['form'] = b2bUpdateProfile(request.POST or None, instance=instance)
+    args['page'] = 'printer_data'
     return render(request, 'account/master.html', args)
 
 def change_password(request):
@@ -53,6 +55,7 @@ def change_password(request):
             messages.error(request, u'Пожалуйста исправьте ошибку в пароле.')
     else:
         args['form'] = PasswordChangeForm(request.user)
+    args['page'] = 'password_change'
     return render(request, 'account/password_change.html', args)
 
 

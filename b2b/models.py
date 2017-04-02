@@ -5,9 +5,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
-#!python
-# -*- coding: utf8 -*-
-
 class Printer(User):
     user = models.OneToOneField(User, null=False)
     name = models.CharField(_(u'Название'), max_length=30)
