@@ -158,11 +158,9 @@ STATIC_URL = '/static/'
 
 # WYSIWIG django-redactor options
 
-REDACTOR_OPTIONS = {'lang': 'ru'}
+REDACTOR_OPTIONS = {'lang': 'ru', 'plugins': ['source']}
 
 
 # PAYPAL options
 
 PAYPAL_TEST = True
-
-SITE_ID = 1
