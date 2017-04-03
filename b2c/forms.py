@@ -30,20 +30,24 @@ class OrderForm(ModelForm):
         self.fields["tags"].queryset = Tags.objects.all()
         self.fields["destination"].required = False
 
+
 class StatusForm(ModelForm):
     class Meta:
         model = Order
-        fields = ['status',]
+        fields = ['status', ]
+
     def __init__(self, *args, **kwargs):
         super(StatusForm, self).__init__(*args, **kwargs)
         self.fields['status'].widget.attrs.update({
             "onchange": "this.form.submit()"
         })
 
+
 class SetDestinationForm(ModelForm):
     class Meta:
         model = Order
         fields = ['destination']
+
     def __init__(self, *args, **kwargs):
         super(SetDestinationForm, self).__init__(*args, **kwargs)
         self.fields['destination'].widget.attrs.update({

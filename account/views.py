@@ -9,15 +9,17 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 
+
 # Create your views here.
 
 def account(request):
-    is_printer = checkPrinter(request)
-    return render(request, 'account/personal_account.html', {'is_printer':is_printer})
+    is_printer = check_printer(request)
+    return render(request, 'account/personal_account.html', {'is_printer': is_printer})
+
 
 def slave_account(request):
     args = {}
-    args['is_printer'] = checkPrinter(request)
+    args['is_printer'] = check_printer(request)
     instance = User.objects.get(id=request.user.id)
     if request.POST:
         form = UpdateProfile(request.POST, instance=instance)
@@ -28,22 +30,24 @@ def slave_account(request):
     args['page'] = 'user_data'
     return render(request, 'account/slave.html', args)
 
+
 def master_account(request):
     args = {}
-    args['is_printer'] = checkPrinter(request)
+    args['is_printer'] = check_printer(request)
     instance = Printer.objects.get(id=request.user.id)
     if request.POST:
-        form = b2bUpdateProfile(request.POST, instance=instance)
+        form = B2bUpdateProfile(request.POST, instance=instance)
         if form.is_valid():
             form.save()
             return redirect('./')
-    args['form'] = b2bUpdateProfile(request.POST or None, instance=instance)
+    args['form'] = B2bUpdateProfile(request.POST or None, instance=instance)
     args['page'] = 'printer_data'
     return render(request, 'account/master.html', args)
 
+
 def change_password(request):
     args = {}
-    args['is_printer'] = checkPrinter(request)
+    args['is_printer'] = check_printer(request)
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -59,11 +63,7 @@ def change_password(request):
     return render(request, 'account/password_change.html', args)
 
 
-
-
-
-
-def checkPrinter(request):
+def check_printer(request):
     try:
         printer_user = Printer.objects.get(user__id=request.user.id)
         is_printer = True
