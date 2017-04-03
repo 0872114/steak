@@ -1,13 +1,10 @@
 #!python
 # -*- coding: utf8 -*-
 
-
 from django.shortcuts import render_to_response, redirect
 from forms import b2bCForm
 from django.template.context_processors import csrf
 from django.shortcuts import render
-
-
 
 
 def register(request):

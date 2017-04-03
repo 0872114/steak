@@ -10,16 +10,13 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 
 
-# Create your views here.
-
 def account(request):
     is_printer = check_printer(request)
     return render(request, 'account/personal_account.html', {'is_printer': is_printer})
 
 
 def slave_account(request):
-    args = {}
-    args['is_printer'] = check_printer(request)
+    args = {'is_printer': check_printer(request)}
     instance = User.objects.get(id=request.user.id)
     if request.POST:
         form = UpdateProfile(request.POST, instance=instance)
@@ -32,8 +29,7 @@ def slave_account(request):
 
 
 def master_account(request):
-    args = {}
-    args['is_printer'] = check_printer(request)
+    args = {'is_printer': check_printer(request)}
     instance = Printer.objects.get(id=request.user.id)
     if request.POST:
         form = B2bUpdateProfile(request.POST, instance=instance)
@@ -46,8 +42,7 @@ def master_account(request):
 
 
 def change_password(request):
-    args = {}
-    args['is_printer'] = check_printer(request)
+    args = {'is_printer': check_printer(request)}
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -56,7 +51,7 @@ def change_password(request):
             messages.success(request, u'Вы успешно сменили пароль!')
             return redirect('./')
         else:
-            messages.error(request, u'Пожалуйста исправьте ошибку в пароле.')
+            messages.error(request, u'Пожалуйста, исправьте ошибку в пароле.')
     else:
         args['form'] = PasswordChangeForm(request.user)
     args['page'] = 'password_change'
@@ -65,11 +60,11 @@ def change_password(request):
 
 def check_printer(request):
     try:
-        printer_user = Printer.objects.get(user__id=request.user.id)
-        is_printer = True
+        Printer.objects.get(user__id=request.user.id)
     except AttributeError:
         return render(request, 'please_login.html')
+
     except Printer.DoesNotExist:
-        is_printer = False
-        return is_printer
-    return is_printer
+        return False
+
+    return True
