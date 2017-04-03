@@ -1,12 +1,13 @@
 #!python
 # -*- coding: utf8 -*-
 
-from django.shortcuts import render_to_response, redirect
-from forms import OrderForm
-from django.template.context_processors import csrf
-from b2b.models import Printer, Tags
 from django.db.models import Q
+from django.shortcuts import redirect
 from django.shortcuts import render
+from django.template.context_processors import csrf
+
+from b2b.models import Printer, Tags
+from forms import OrderForm
 
 
 def map(request, template='b2c/map.html'):
@@ -43,7 +44,7 @@ def map(request, template='b2c/map.html'):
                 form.save()
                 return redirect('./')
 
-    #Fill marker template args
+    # Fill marker template args
     for printer in printers:
         marker = dict(
             coords_name="lalo_" + str(printer.id),
@@ -59,9 +60,9 @@ def map(request, template='b2c/map.html'):
 
     return render(request, template, args)
 
+
 def market(request):
     if request.user.id:
         return map(request, template='b2c/market.html')
     else:
         return render(request, 'please_login.html')
-

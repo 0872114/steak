@@ -1,13 +1,13 @@
 #!python
 # -*- coding: utf8 -*-
 
-from django.shortcuts import render_to_response, redirect, render
-from b2c.models import Order
-from b2b.models import Printer
-from forms import *
-from django.utils import timezone
+from django.shortcuts import redirect, render
 from django.template.context_processors import csrf
+from django.utils import timezone
+
+from b2b.models import Printer
 from b2c.forms import *
+from forms import *
 
 
 def bidmarket(request):
@@ -42,13 +42,14 @@ def received_orders(request):
     if request.user.id:
         orders = Order.objects.filter(destination__user_id=request.user.id).order_by('datetime').reverse()
         list = prepare_orders(orders)
-        return render(request, 'market/received_orders.html', {'orders': list, 'id': request.user.id, 'is_printer': True, 'page': 'my_orders'})
+        return render(request, 'market/received_orders.html',
+                      {'orders': list, 'id': request.user.id, 'is_printer': True, 'page': 'my_orders'})
     else:
         return render(request, 'please_login.html')
 
 
 def show_order(request, id=None):
-    if (id is None):
+    if id is None:
         return redirect('./')
     else:
         args = {}
@@ -124,13 +125,14 @@ def private_all(request):
     if request.user.id:
         orders = Order.objects.filter(user_id=request.user.id).order_by('datetime').reverse()
         list = prepare_orders(orders)
-        return render(request, 'market/received_orders.html', {'orders': list, 'id': request.user.id, 'private': True, 'page': 'private_all'})
+        return render(request, 'market/received_orders.html',
+                      {'orders': list, 'id': request.user.id, 'private': True, 'page': 'private_all'})
     else:
         return render(request, 'please_login.html')
 
 
 def private_one(request, id=None):
-    if (id is None):
+    if id is None:
         return redirect('./')
     else:
         if 'destination' in request.POST:
@@ -140,13 +142,12 @@ def private_one(request, id=None):
                 form.save()
                 return redirect('private_one', id=id)
         if request.user.id:
-            #If order exists
+            # If order exists
             try:
                 order = Order.objects.get(id=int(id))
-                #if user is the creator
+                # if user is the creator
                 if order.user.id == request.user.id:
-                    args = {}
-                    args['is_private'] = True
+                    args = {'is_private': True}
                     order_sorted = sort_order(order)
                     args['order'] = order_sorted
                     args['comments'] = []
@@ -181,7 +182,6 @@ def private_one(request, id=None):
 
 def sort_order(order):
     now = timezone.now()
-    list = []
     order_data = dict(
         id=order.id,
         market=order.market,
@@ -212,8 +212,8 @@ def sort_order(order):
     time_diff_hours = divmod((now - order.datetime).total_seconds(), 3600)[0]
 
     # Mark 3+ hours old unprocessed orders red, the new ones green,
-    if (order.status == 'new'):
-        if (time_diff_hours >= 3):
+    if order.status == 'new':
+        if time_diff_hours >= 3:
             order_data['tr_class'] = 'tr-market-red'
         else:
             order_data['tr_class'] = 'tr-market-green'

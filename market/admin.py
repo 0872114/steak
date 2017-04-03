@@ -8,4 +8,5 @@ from models import *
 class MarketCommentAdmin(admin.ModelAdmin):
     pass
 
+
 admin.site.register(MarketComment, MarketCommentAdmin)

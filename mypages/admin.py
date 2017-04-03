@@ -6,12 +6,12 @@ from redactor.widgets import RedactorEditor
 
 
 class VisualEditor(forms.ModelForm):
-    is_hidden = False
+
     class Meta:
         model = FlatPage
         fields = '__all__'
         widgets = {
-           'content': RedactorEditor(),
+            'content': RedactorEditor(),
         }
 
 

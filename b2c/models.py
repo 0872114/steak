@@ -27,14 +27,14 @@ class Order(models.Model):
         related_name='order_user',
         on_delete=models.CASCADE,
         blank=True,
-        null = True,
+        null=True,
     )
     phone = models.CharField(_(u'Телефон'), max_length=15, blank=True)
     destination = models.ForeignKey(
         'b2b.Printer',
         on_delete=models.CASCADE,
         blank=True,
-        null = True,
+        null=True,
     )
     service = models.CharField(_(u'Услуга'), max_length=50)
     comment = models.TextField(_(u'Комментарий'))
@@ -42,7 +42,7 @@ class Order(models.Model):
         'b2b.Categories',
         on_delete=models.CASCADE,
         default='',
-        null = True,
+        null=True,
     )
     tags = models.ManyToManyField('b2b.Tags')
     market = models.BooleanField(_(u'На рынке заявок'), default=False)

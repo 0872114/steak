@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'', include('content.urls')),
     url(r'^redactor', include('redactor.urls')),
     url(r'^paypal', include('paypal.standard.ipn.urls')),
-    url(r'^paytest/', include ('transactions.urls')),
+    url(r'^paytest/', include('transactions.urls')),
     url(r'^market/', include('market.urls')),
     url(r'^b2b/', include('b2b.urls')),
     url(r'^chat/', include('chat.urls')),

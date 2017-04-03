@@ -1,8 +1,9 @@
-from django.shortcuts import render_to_response, redirect
-from forms import MyUserCreationForm
 from django.contrib import auth
-from django.template.context_processors import csrf
+from django.shortcuts import redirect
 from django.shortcuts import render
+from django.template.context_processors import csrf
+
+from forms import MyUserCreationForm
 
 
 def register(request):
@@ -13,9 +14,11 @@ def register(request):
         newuser_form = MyUserCreationForm(request.POST)
         if newuser_form.is_valid():
             newuser_form.save()
-            newuser = auth.authenticate(username=newuser_form.cleaned_data['username'], password=newuser_form.cleaned_data['password1'])
+            newuser = auth.authenticate(
+                username=newuser_form.cleaned_data['username'],
+                password=newuser_form.cleaned_data['password1'])
             auth.login(request, newuser)
             return redirect('/')
         else:
             args['form'] = newuser_form
-    return render(request,'registration/register.html', args)
+    return render(request, 'registration/register.html', args)

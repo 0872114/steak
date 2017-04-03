@@ -4,10 +4,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
 
-
 class MyUserCreationForm(UserCreationForm):
     email = EmailField(label=_("Email address"), required=True,
-        help_text=_("Required."))
+                       help_text=_("Required."))
 
     class Meta:
         model = User

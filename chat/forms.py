@@ -14,7 +14,6 @@ class ChatMessageForm(ModelForm):
             'message': forms.Textarea(attrs={'rows': 4, 'cols': 10}),
         }
 
-
     def __init__(self, *args, **kwargs):
         super(ChatMessageForm, self).__init__(*args, **kwargs)
         # add common css class to all widgets

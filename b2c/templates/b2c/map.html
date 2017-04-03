@@ -96,8 +96,7 @@ function restyleChboxes(){
     var chboxes = $("[id*='id_tags_']");
     $(chboxes).parents("label").unwrap();
     $.each(chboxes, function() {
-        var labelText = $(this).parent().text(),
-            currentChbox = $(this);
+        var currentChbox = $(this);
         //Change input group style
         $(currentChbox).parent("label").addClass("form-check-label");
         $(currentChbox).addClass('form-check-input');

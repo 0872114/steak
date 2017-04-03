@@ -1,11 +1,11 @@
 #!python
 # -*- coding: utf8 -*-
 
-from django import forms
 from django.forms import ModelForm
-from models import Order
-from b2b.models import Tags
 from django.forms.widgets import CheckboxSelectMultiple
+
+from b2b.models import Tags
+from models import Order
 
 
 class OrderForm(ModelForm):
