@@ -4,10 +4,14 @@
 Вход
 {% endblock %}
 
+{% block headertext %}
+    <h1>Вход</h1>
+{% endblock %}
+
 {% block content %}
 
 {% if form.errors %}
-<p class="error">Incorrect Name or Password</p>
+<p class="error">Некорректное имя или пароль.</p>
 {% endif %}
 
 <div class="bloke-login col-xs-6 col-sm-6">

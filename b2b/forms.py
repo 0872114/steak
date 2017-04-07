@@ -1,10 +1,10 @@
-from models import *
-from django.contrib.auth.forms import UserCreationForm
-from django import forms
-
 #!python
 # -*- coding: utf8 -*-
 
+from models import *
+from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import ugettext_lazy as _
+from django import forms
 
 class b2bCForm(UserCreationForm):
     class Meta:
@@ -25,6 +25,7 @@ class b2bCForm(UserCreationForm):
             self.fields[field].widget.attrs.update({
                 "class": classes
             })
+        self.fields['username'].help_text = _(u'Обязательное поле. Не более 30 символов. Только буквы, цифры и символы @/./+/-/_.')
         self.fields['address'].widget = forms.HiddenInput()
         self.fields['lat'].widget = forms.HiddenInput()
         self.fields['lon'].widget = forms.HiddenInput()

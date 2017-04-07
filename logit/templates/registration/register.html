@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block headtitle %}
-Регистрация
+    Регистрация
 {% endblock %}
 
+{% block headertext %}
+    <h1>Регистрация</h1>
+{% endblock %}
 
 {% block content %}
-<h1>Регистрация</h1>
-
-
     <div class="bloke-register col-xs-6 col-sm-6">
 <form method="post" action="" class="form-group logit-group">
 {% csrf_token %}

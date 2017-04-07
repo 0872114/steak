@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block headtitle %}
+    Рынок заказов
+{% endblock %}
+
+{% block content %}
+<h2> Вы успешно отправили заказ всем печатникам. <br/>
+    Вы можете
+    <a href="{% url 'my_orders' %}">посмотреть</a> свои заказы или <a href="{% url 'market' %}">оформить новый</a>. </h2>
+{% endblock %}

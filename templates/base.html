@@ -35,10 +35,10 @@
                     <a href="{% url 'map' %}" class="navbar-brand">BiShen</a>
                 </div>
 
-                <nav class="col-sm-12 collapse navbar-collapse bs-navbar-collapse collapse in" role="navigation">
+                <nav class="col-sm-12 collapse navbar-collapse bs-navbar-collapse collapse" role="navigation">
                     <ul class="nav navbar-nav">
                         <li><a href="{% url 'map' %}">Найти печатника</a></li>
-                        <li><a href="{% url 'market' %}">Найти заказ</a></li>
+                        <li><a href="{% url 'market' %}">Совершить заказ</a></li>
                             <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">О печати<span class="caret"></span></a>
 
@@ -77,9 +77,15 @@
                     <a type="button" class="btn btn-info reg-btn" href="{% url 'login' %}">Войти</a>
 
                 {% endif %}
-
                 </div>
             </div>
+            <form class="navbar-form navbar-right" accept-charset="utf-8" role="search" method='post' action="{% url 'map' %}">
+                <div class="form-group">
+                    <input name="filter" id="filter" type="text" class="form-control" placeholder="{{ get }}">
+                </div>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-default">Найти</button>
+            </form>
         </header>
       {% endblock %}
 
@@ -102,7 +108,7 @@
     {% endblock %}
 
 	<div id="footer">
-		<small> (c) Blank Blank Blank, 2017 </small>
+		<small> (c) BiShen,2017 </small>
 
         <div id="socialm">
 				<a href="blank.html" title="blank.html" class="links">

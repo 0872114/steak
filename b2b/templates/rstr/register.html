@@ -1,8 +1,14 @@
 {% extends "base.html" %}
+
+{% block headtitle %}
+    Регистрация
+{% endblock %}
+
+{% block headertext %}
+    <h1>Регистрация</h1>
+{% endblock %}
+
 {% block content %}
-<h1>Регистрация</h1>
-
-
     <div class="bloke-register-b2b col-xs-6 col-sm-6">
 <form enctype="multipart/form-data" method="post">
 {% csrf_token %}

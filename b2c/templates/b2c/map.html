@@ -1,21 +1,14 @@
 {% extends "base.html" %}
 
 {% block headtitle %}
-    Найти заказ
+    Найти печатника
 {% endblock %}
 
 {% block headertext %}
-    Найдите печатника поблизости и сделайте заказ!
+    <h1>Найдите печатника поблизости и сделайте заказ!</h1>
 {% endblock %}
 
 {% block content %}
-<form class="navbar-form navbar-right" accept-charset="utf-8" role="search" method='post' action="">
-    <div class="form-group">
-        <input name="filter" id="filter" type="text" class="form-control" placeholder="{{ get }}">
-    </div>
-    {% csrf_token %}
-    <button type="submit" class="btn btn-default">Найти</button>
-</form>
 <div id="map" style="height: 600px; width: 100%;"></div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

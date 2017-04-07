@@ -63,6 +63,16 @@ def map(request, template='b2c/map.html'):
 
 def market(request):
     if request.user.id:
+        if request.POST:
+            form = OrderForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('market_success')
+
         return map(request, template='b2c/market.html')
     else:
         return render(request, 'please_login.html')
+
+
+def market_success(request):
+        return render(request, 'b2c/market_success.html')
