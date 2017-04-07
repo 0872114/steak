@@ -114,6 +114,17 @@ ul.nav {
 	display: inline;
 }
 
+.bishen-logo {
+	margin-left: 10px;
+	width: 75px;
+	height: 75px;
+	margin-top: 0px;
+	padding-bottom: -5px;
+	padding-top: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
 /* EDITABLE THINGS STARTS HERE */
 
 .editable {
