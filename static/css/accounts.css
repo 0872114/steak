@@ -23,6 +23,8 @@ acc {
 
 .profile-table {
     float: right;
+    margin-left: 100px;
+    margin-right: 0px;
 }
 
 .forms {
@@ -32,10 +34,30 @@ acc {
     height: 100%;
     margin: auto;
     margin-top: 10px;
-    margin-bottom: 200px;
+    margin-left: 100px;
 }
 
 .pass-change {
     margin-top: 15px;
     width: 70%;
+    align-content: center!important;
+}
+
+.pass-change-btn {
+    align-content: center!important;
+}
+
+.slave-submit {
+    margin-top: 20px;
+    margin-left: 100px;
+}
+
+.printer-submit {
+    margin-left: 175px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.pass-div {
+    -webkit-align-items: center;
 }

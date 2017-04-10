@@ -114,16 +114,44 @@ ul.nav {
 	display: inline;
 }
 
-.bishen-logo {
-	margin-left: 10px;
-	width: 75px;
-	height: 75px;
-	margin-top: 0px;
-	padding-bottom: -5px;
-	padding-top: 5px;
-	padding-left: 5px;
-	padding-right: 5px;
+
+.bishen {
+	background-image: url('../images/bishen logo clean.png');
+	background-size: 270px;
+	background-repeat: no-repeat;
+	background-position: center;
+	padding-top: 120px;
+	padding-bottom: 120px;
+	padding-left: 82px;
+	padding-right: 80px;
+	margin: 10px;
 }
+
+.bishen-navbar {
+	margin-left: 80px!important;
+}
+
+.iframe-container{
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Ratio 16:9 ( 100%/16*9 = 56.25% ) */
+}
+.iframe-container > *{
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.navbar-form {
+}
+
 
 /* EDITABLE THINGS STARTS HERE */
 

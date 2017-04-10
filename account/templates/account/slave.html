@@ -4,7 +4,7 @@
 
 <form method="post" action="" class="form-group logit-group">
 
-<div class="profile-table">
+<div class="slave-table">
 {% for field in form %}
     <dt>{{ field.label_tag }}</dt>
     <dd class="clearfix">{{ field }}
@@ -13,7 +13,7 @@
     </dd>
 {% endfor %}
 </div>
-    <input type="submit" value="Изменить" class="btn btn-success logit">
+    <input type="submit" value="Изменить" class="btn btn-success slave-submit">
 
 </form>
 

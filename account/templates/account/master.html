@@ -4,7 +4,7 @@
 
 <form enctype="multipart/form-data" method="post">
 {% csrf_token %}
-<div class="profile-table">
+<div class="master-table">
 {% for field in form.visible_fields %}
     <dt>{{ field.label_tag }}</dt>
     <dd class="clearfix">{{ field }}
@@ -17,15 +17,20 @@
     {% endfor %}
 </div>
 
-    <input type="submit" value="Изменить" class="btn btn-success logit">
+    <input type="submit" value="Изменить" class="btn btn-success printer-submit">
 
 </form>
+
+<div id="map-container">
 
  <div id="floating-panel">
       <input id="address" type="textbox", class="form-control" value="Москва, Россия">
       <input id="submit-geocode" type="button" value="Проверить адрес">
 </div>
+      <div class="iframe-container">
     <div id="map"></div>
+      </div>
+    </div>
 
 {% endblock %}
 
@@ -89,8 +94,7 @@ function geocodePosition(pos)
     },
         function(results, status)
         {
-            if (status == google.maps.GeocoderStatus.OK)
-            {
+            if (status == google.maps.GeocoderStatus.OK) {
                 $("#address").val(results[0].formatted_address);
                 $("#mapErrorMsg").hide(100);
                 $('#id_address').val(results[0].formatted_address);
@@ -108,7 +112,8 @@ function geocodePosition(pos)
 window.onload = function() {
     $('#id_logo').removeClass('form-control');
     initMap();
-}
+};
+
 </script>
 
 {% endblock %}

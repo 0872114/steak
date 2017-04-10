@@ -50,3 +50,5 @@ class B2bUpdateProfile(b2bCForm):
         self.fields['address'].widget = forms.HiddenInput()
         self.fields['lat'].widget = forms.HiddenInput()
         self.fields['lon'].widget = forms.HiddenInput()
+        self.fields.pop('password1')
+        self.fields.pop('password2')
