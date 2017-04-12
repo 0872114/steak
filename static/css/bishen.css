@@ -117,14 +117,9 @@ ul.nav {
 
 .bishen {
 	background-image: url('../images/bishen logo clean.png');
-	background-size: 270px;
+	background-size: 40px;
 	background-repeat: no-repeat;
-	background-position: center;
-	padding-top: 120px;
-	padding-bottom: 120px;
-	padding-left: 82px;
-	padding-right: 80px;
-	margin: 10px;
+	padding-left: 40px;
 }
 
 .bishen-navbar {
