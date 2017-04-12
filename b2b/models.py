@@ -8,8 +8,9 @@ from django.contrib.auth.models import User
 class Printer(User):
     user = models.OneToOneField(User, null=False)
     name = models.CharField(_(u'Название'), max_length=30)
+    middle_name = models.CharField(_(u'Отчество'), default='', blank=True, max_length=30)
     address = models.CharField(_(u'Адрес'), max_length=50)
-    phone = models.CharField(_(u'Телефон'), max_length=15)
+    phone = models.CharField(_(u'Контактный номер телефона'), max_length=15)
     website = models.URLField(_(u'Вебсайт'))
     services = models.CharField(_(u'Услуги'), max_length=50)
     lat = models.FloatField(_(u'Широта'))
