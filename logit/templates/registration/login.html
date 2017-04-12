@@ -17,20 +17,8 @@
 
 <div class="bloke-login col-xs-6 col-sm-6">
 <div align="center">
-    <a href="{% url 'social:begin' 'facebook' %}" class="links">
-        <img src="{% static "images/fb.png" %}" alt="Facebook">
-    </a>
-
     <a href="{% url 'social:begin' 'vk-oauth2' %}" class="links">
         <img src="{% static "images/vk.png" %}" alt="VK" class="img-circle">
-    </a>
-
-    <a href="{% url 'social:begin' 'twitter' %}" class="links">
-        <img src="{% static "images/tw.png" %}" alt="Twitter" class="img-circle">
-    </a>
-
-    <a href="{% url 'social:begin' 'instagram' %}" class="links">
-        <img src="{% static "images/inst.png" %}" alt="Instagram" class="img-circle">
     </a>
 </div>
 <form class="form-group logit-group" action="" method="POST">
