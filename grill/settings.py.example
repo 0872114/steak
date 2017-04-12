@@ -35,7 +35,7 @@ SECRET_KEY = 'q6rgy&15ujf)l3buo_p5i7d%-z(0tl0%d1y5p_2(q8_2wn%!)e'
 DEBUG = True
 SITE_ID = 1
 
-ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1', '188.120.242.176']
+ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1', '188.120.242.176', '37.113.157.170']
 
 
 STATICFILES_DIRS = [
@@ -67,7 +67,8 @@ PROJECT_APPS = [
     'account',
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'mypages'
+    'mypages',
+    'social_django',
 ]
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
@@ -81,6 +82,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'grill.urls'
@@ -99,6 +101,8 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -164,3 +168,21 @@ REDACTOR_OPTIONS = {'lang': 'ru', 'plugins': ['source']}
 # PAYPAL options
 
 PAYPAL_TEST = True
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.vk.VKOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.twitter.TwitterOAuth',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_CREATE_USERS = True
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = '5980063'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'DmIGB2SAhPSI3WW1xM7B'

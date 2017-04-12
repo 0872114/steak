@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static from staticfiles %}
 
 {% block headtitle %}
     Регистрация
@@ -14,6 +15,25 @@
         <p>
             Это форма регистрации клиента. Чтобы зарегистрировать свою типографию, перейдите по <a href="{% url 'b2b_register' %}">ссылке</a>.
         </p>
+        <h2>Зарегистрироваться через социальные сети</h2>
+        <div align="center">
+				<a href="{% url 'social:begin' 'facebook' %}" class="links">
+					<img src="{% static "images/fb.png" %}" alt="Facebook">
+                </a>
+
+				<a href="{% url 'social:begin' 'vk-oauth2' %}" class="links">
+					<img src="{% static "images/vk.png" %}" alt="VK" class="img-circle">
+                </a>
+
+				<a href="{% url 'social:begin' 'twitter' %}" class="links">
+					<img src="{% static "images/tw.png" %}" alt="Twitter" class="img-circle">
+                </a>
+
+				<a href="{% url 'social:begin' 'instagram' %}" class="links">
+					<img src="{% static "images/inst.png" %}" alt="Instagram" class="img-circle">
+                </a>
+        </div>
+        <h2>Зарегистрироваться вручную</h2>
         <form method="post" action="" class="form-group logit-group">
         {% csrf_token %}
         <dl class="register">

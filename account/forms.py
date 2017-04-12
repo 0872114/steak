@@ -32,7 +32,6 @@ class B2bUpdateProfile(b2bCForm):
         model = Printer
         fields = ('username', 'address', 'name', 'first_name', 'last_name', 'email', 'phone', 'website', 'services',
                   'lat', 'lon', 'logo', 'categories', 'tags')
-        exclude = ['password1', 'password2']
 
     def __init__(self, *args, **kwargs):
         super(B2bUpdateProfile, self).__init__(*args, **kwargs)
