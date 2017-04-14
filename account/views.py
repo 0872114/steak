@@ -9,14 +9,15 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from datetime import datetime, timedelta
+import pytz
 
 
 def account(request):
     args = {'is_printer': check_printer(request)}
     args['expires_soon'] = False
     if args['is_printer'].subscribed is True:
-        elapsed = args['is_printer'].sub_expires - datetime.now()
-        if elapsed <= datetime.timedelta(days=3):
+        elapsed = args['is_printer'].sub_expires.astimezone(pytz.UTC) - pytz.utc.localize(datetime.now())
+        if elapsed <= timedelta(days=3):
             args['expires_soon'] = True
         else:
             args['expires_soon'] = False

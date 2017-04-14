@@ -5,9 +5,9 @@ from django.db.models import Q
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.template.context_processors import csrf
-
 from b2b.models import Printer, Tags
 from forms import OrderForm
+from datetime import datetime
 
 
 def map(request, template='b2c/map.html'):
@@ -37,7 +37,7 @@ def map(request, template='b2c/map.html'):
                                           Q(categories__category__icontains=filter) | \
                                           Q(tags__tag__icontains=filter)).distinct()
     else:
-        printers = Printer.objects.all()
+        printers = Printer.objects.filter(sub_expires__gt=datetime.now())
         if request.POST:
             form = OrderForm(request.POST)
             if form.is_valid():
