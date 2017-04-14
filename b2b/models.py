@@ -18,6 +18,8 @@ class Printer(User):
     logo = models.ImageField(_(u'Логотип'), upload_to=".printers", blank=True)
     categories = models.ManyToManyField('b2b.Categories')
     tags = models.ManyToManyField('b2b.Tags')
+    subscribed = models.BooleanField(default=False)
+    sub_expires = models.DateTimeField
 
 
     class Meta:
