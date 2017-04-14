@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block headtitle %}
+    Рынок заказов
+{% endblock %}
+
+{% block content %}
+<h2 align="center">
+    Ваша подписка истекла. <br/>
+    Пожалуйста,
+    <a href="{% url 'sub' %}"> обновите подписку</a>.
+</h2>
+{% endblock %}

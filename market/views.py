@@ -8,6 +8,8 @@ from django.utils import timezone
 from b2b.models import Printer
 from b2c.forms import *
 from forms import *
+from datetime import datetime
+import pytz
 
 
 def bidmarket(request):
@@ -16,7 +18,12 @@ def bidmarket(request):
         args.update(csrf(request))
         if 'response_order' in request.POST:
             current = Order.objects.get(id=int(request.POST['response_order']))
-            current.responses.add(Printer.objects.get(id=int(request.POST['responder'])))
+            responder = Printer.objects.get(id=int(request.POST['responder']))
+            if responder.sub_expires.astimezone(pytz.UTC) > pytz.utc.localize(datetime.now()):
+                current.responses.add(responder)
+            else:
+                return render(request, 'please_subscribe.html')
+
         user = request.user.id
         try:
             printer_user = Printer.objects.get(user__id=user)
@@ -57,14 +64,25 @@ def show_order(request, id=None):
             user = request.user.id
             # If comment added
             if 'comment' in request.POST:
-                form = MarketCommentForm(request.POST)
-                if form.is_valid():
-                    form.save()
-                    return redirect('market_order', id=id)
+                sender = Printer.objects.get(id=int(request.POST['sender']))
+                if sender.sub_expires.astimezone(pytz.UTC) > pytz.utc.localize(datetime.now()):
+                    form = MarketCommentForm(request.POST)
+                    if form.is_valid():
+                        form.save()
+                        return redirect('market_order', id=id)
+
+                else:
+                    return render(request, 'please_subscribe.html')
+
             # If response added
             elif 'response_order' in request.POST:
                 current = Order.objects.get(id=int(request.POST['response_order']))
-                current.responses.add(Printer.objects.get(id=int(request.POST['responder'])))
+                responder = Printer.objects.get(id=int(request.POST['responder']))
+                if responder.sub_expires.astimezone(pytz.UTC) > pytz.utc.localize(datetime.now()):
+                    current.responses.add(responder)
+                else:
+                    return render(request, 'please_subscribe.html')
+
             # If status changed
             elif 'status' in request.POST:
                 instance = Order.objects.get(id=int(id))
@@ -72,6 +90,7 @@ def show_order(request, id=None):
                 if form.is_valid():
                     form.save()
                     return redirect('market_order', id=id)
+
             # Find out if an order exists
             try:
                 order = Order.objects.get(id=int(id))
@@ -92,6 +111,7 @@ def show_order(request, id=None):
                     )
                 except AttributeError:
                     return render(request, 'please_login.html')
+
                 except Printer.DoesNotExist:
                     return render(request, 'please_login.html')
 
@@ -114,9 +134,11 @@ def show_order(request, id=None):
                 args['is_printer'] = True
                 args['page'] = 'market_order'
                 return render(request, 'market/show_order.html', args)
+
             except Order.DoesNotExist:
                 return render(request, 'market/show_order.html',
                               {'error': 'DoesNotExist: matching order does not exist'})
+
         else:
             return render(request, 'please_login.html')
 
@@ -127,6 +149,7 @@ def private_all(request):
         list = prepare_orders(orders)
         return render(request, 'market/received_orders.html',
                       {'orders': list, 'id': request.user.id, 'private': True, 'page': 'private_all'})
+
     else:
         return render(request, 'please_login.html')
 
@@ -134,6 +157,7 @@ def private_all(request):
 def private_one(request, id=None):
     if id is None:
         return redirect('./')
+
     else:
         if 'destination' in request.POST:
             instance = Order.objects.get(id=int(id))
@@ -141,6 +165,7 @@ def private_one(request, id=None):
             if form.is_valid():
                 form.save()
                 return redirect('private_one', id=id)
+
         if request.user.id:
             # If order exists
             try:
@@ -171,11 +196,14 @@ def private_one(request, id=None):
                     except AttributeError:
                         pass
                     return render(request, 'market/show_order.html', args)
+
                 else:
                     return render(request, 'please_login.html')
+
             except Order.DoesNotExist:
                 return render(request, 'market/show_order.html',
                               {'error': 'DoesNotExist: matching order does not exist'})
+
         else:
             return render(request, 'please_login.html')
 
