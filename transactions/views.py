@@ -6,6 +6,7 @@ from paypal.standard.models import ST_PP_COMPLETED
 from django.shortcuts import render
 from paypal.standard.ipn.signals import *
 from models import Superuser
+import pytz
 
 
 def paypal_view(request):
@@ -39,7 +40,7 @@ def show_me_the_money(sender,request, **kwargs):
                 return render(request, 'transactions/invalid.html')
             if ipn_obj.custom == request.user.id:
                 instance = Printer.objects.get(id=request.user.id)
-                if instance.subscribed is False:
+                if instance.sub_expires.astimezone(pytz.UTC) < pytz.utc.localize(datetime.now()):
                     instance.sub_expires = datetime.now() + timedelta(days=30)
                 else:
                     instance.sub_expires += timedelta(days=30)
