@@ -6,10 +6,17 @@
     <div class="row">
         <div class="col-xs- menus">
             <ul class="nav nav-pills nav-stacked">
-                {% if is_printer is True %}
+                {% if is_printer is not False %}
                 <li {% if page == 'printer_data'%} class="active" {% endif %}><a href="{% url 'printer_data' %}"><i class="fa fa-cogs fa-fw"></i>Мои настройки</a></li>
                 <li {% if page == 'my_orders'%} class="active" {% endif %}><a href="{% url 'my_orders' %}"><i class="fa fa-pencil-square fa-fw"></i>Принятые заказы</a></li>
                 <li {% if page == 'market_orders'%} class="active" {% endif %}><a href="{% url 'market_orders' %}"><i class="fa fa-globe fa-fw"></i>Рынок заказов</a></li>
+                    {% if is_printer.subscribed is True %}
+                        <li {% if page == 'sub' %} class="active" {% endif %}><a href="{% url 'sub' %}"><i class="fa fa-handshake-o fa-fw"></i>Моя подписка</a>
+                            {% if expires_soon is True %} <p id="subscription"><i class="fa fa-exclamation-triangle fa-fw"></i> До окончания подписки осталось 3 дня</p>
+                            {% endif %}  </li>
+                    {% else %}
+                        <li {% if page == 'sub' %} class="active" {% endif %}><a href="{% url 'sub' %}"><i class="fa fa-handshake-o fa-fw"></i>Оформить подписку</a></li>
+                    {% endif %}
                 {% else %}
                 <li {% if page == 'user_data'%} class="active" {% endif %}><a href="{% url 'user_data' %}"><i class="fa fa-cogs fa-fw"></i>Мои настройки</a></li>
                 <li {% if page == 'private_all'%} class="active" {% endif %}><a href="{% url 'private_all' %}"><i class="fa fa-comments-o fa-fw"></i>Мои заказы</a></li>

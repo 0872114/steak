@@ -8,12 +8,24 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from datetime import datetime, timedelta
 
 
 def account(request):
-    is_printer = check_printer(request)
-    return render(request, 'account/personal_account.html', {'is_printer': is_printer})
+    args = {'is_printer': check_printer(request)}
+    args['expires_soon'] = False
+    if args['is_printer'].subscribed is True:
+        elapsed = args['is_printer'].sub_expires - datetime.now()
+        if elapsed <= datetime.timedelta(days=3):
+            args['expires_soon'] = True
+        else:
+            args['expires_soon'] = False
+    return render(request, 'account/personal_account.html', args)
 
+def sub(request):
+    args = {'is_printer': check_printer(request)}
+    args['page'] = 'sub'
+    return render(request, 'account/subscription.html', args)
 
 def slave_account(request):
     args = {'is_printer': check_printer(request)}
@@ -67,4 +79,4 @@ def check_printer(request):
     except Printer.DoesNotExist:
         return False
 
-    return True
+    return Printer.objects.get(user__id=request.user.id)

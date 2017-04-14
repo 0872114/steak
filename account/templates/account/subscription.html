@@ -1,0 +1,16 @@
+{% extends "account/personal_account.html" %}
+
+{% block account %}
+
+<div id="sub-container">
+ <div id="sub-text">
+    Без подписки ваша типография не отображается на карте </br>
+ </br>
+    И не может откликаться на заказы внутри рынка</br>
+ </div>
+
+  <a type="button" class="btn btn-success sub-btn" href="{% url 'paypal' %}">Подписаться</a>
+
+</div>
+
+{% endblock %}

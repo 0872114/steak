@@ -2,5 +2,5 @@ from django.conf.urls import url, include
 from views import *
 
 urlpatterns = [
-    url(r'^test/', paypal_view, name='wtf'),
+    url(r'^payment/', paypal_view, name='paypal'),
 ]
