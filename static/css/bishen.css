@@ -144,9 +144,9 @@ ul.nav {
     width: 100%;
 }
 
-.navbar-form {
+#filter {
+	width: 100%;
 }
-
 
 /* EDITABLE THINGS STARTS HERE */
 

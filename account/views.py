@@ -15,13 +15,20 @@ import pytz
 def account(request):
     args = {'is_printer': check_printer(request)}
     args['expires_soon'] = False
-    if args['is_printer'].subscribed is True:
-        elapsed = args['is_printer'].sub_expires.astimezone(pytz.UTC) - pytz.utc.localize(datetime.now())
-        if elapsed <= timedelta(days=3):
-            args['expires_soon'] = True
-        else:
-            args['expires_soon'] = False
-    return render(request, 'account/personal_account.html', args)
+    if args['is_printer'] is not False:
+        if args['is_printer'].subscribed is True:
+            if args['is_printer'].sub_expires.astimezone(pytz.UTC) > pytz.utc.localize(datetime.now()):
+                elapsed = args['is_printer'].sub_expires.astimezone(pytz.UTC) - pytz.utc.localize(datetime.now())
+                if elapsed <= timedelta(days=3):
+                    args['expires_soon'] = True
+                else:
+                    args['expires_soon'] = False
+            else:
+                args['is_printer'].subscribed = False
+                args['is_printer'].save()
+            return render(request, 'account/personal_account.html', args)
+    else:
+        return render(request, 'account/personal_account.html', args)
 
 def sub(request):
     args = {'is_printer': check_printer(request)}

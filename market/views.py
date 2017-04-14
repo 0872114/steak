@@ -148,7 +148,7 @@ def private_all(request):
         orders = Order.objects.filter(user_id=request.user.id).order_by('datetime').reverse()
         list = prepare_orders(orders)
         return render(request, 'market/received_orders.html',
-                      {'orders': list, 'id': request.user.id, 'private': True, 'page': 'private_all'})
+                      {'orders': list, 'id': request.user.id, 'private': True, 'page': 'private_all', 'is_printer': False})
 
     else:
         return render(request, 'please_login.html')

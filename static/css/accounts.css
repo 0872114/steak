@@ -1,11 +1,10 @@
 body{margin-top:20px;}
 .fa-fw {width: 2em;}
 
-acc {
+.acc {
     padding-right: 15px;
     margin-bottom: 100px;
     clear: both;
-    overflow: auto;
 }
 
 .menus {
