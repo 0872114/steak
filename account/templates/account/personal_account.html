@@ -12,7 +12,7 @@
                 <li {% if page == 'market_orders'%} class="active" {% endif %}><a href="{% url 'market_orders' %}"><i class="fa fa-globe fa-fw"></i>Рынок заказов</a></li>
                     {% if is_printer.subscribed is True %}
                         <li {% if page == 'sub' %} class="active" {% endif %}><a href="{% url 'sub' %}"><i class="fa fa-handshake-o fa-fw"></i>Моя подписка</a>
-                            {% if expires_soon is True %} <p id="subscription"><i class="fa fa-exclamation-triangle fa-fw"></i> До окончания подписки осталось 3 дня</p>
+                            {% if expires_soon is True %} <p id="subscription"><i class="fa fa-exclamation-triangle fa-fw"></i> До окончания подписки осталось менее 3 дней</p>
                             {% endif %}  </li>
                     {% else %}
                         <li {% if page == 'sub' %} class="active" {% endif %}><a href="{% url 'sub' %}"><i class="fa fa-handshake-o fa-fw"></i>Оформить подписку</a></li>
