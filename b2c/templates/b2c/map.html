@@ -10,7 +10,7 @@
 
 {% block filter %}
     <form class="navbar-form navbar-right" accept-charset="utf-8" role="search" method='post' action="{% url 'map' %}">
-        <div class="form-group">
+        <div class="form-group filter-group">
             <input name="filter" id="filter" type="text" class="form-control" placeholder="{{ get }}">
         </div>
         {% csrf_token %}

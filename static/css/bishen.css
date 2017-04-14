@@ -144,10 +144,18 @@ ul.nav {
     width: 100%;
 }
 
-#filter {
-	width: 100%;
+.navbar-form {
+	padding: 0px;
+	margin-right: 0px;
 }
 
+.filter-group, .navbar-form, #filter {
+	width: 99%;
+}
+
+.btn-default {
+	margin: 5px;
+}
 /* EDITABLE THINGS STARTS HERE */
 
 .editable {
