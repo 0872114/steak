@@ -27,6 +27,8 @@ class b2bCForm(UserCreationForm):
             })
         self.fields['username'].help_text = _(u'Обязательное поле. Не более 30 символов. Только буквы, цифры и символы @/./+/-/_.')
         self.fields['phone'].help_text = _(u'Указанный телефон будет виден всем пользователям.')
+        self.fields['tags'].help_text = _(u'Для выбора нескольких тегов зажмите Ctrl.')
+        self.fields['categories'].help_text = _(u'Для выбора нескольких категорий зажмите Ctrl.')
         self.fields['address'].widget = forms.HiddenInput()
         self.fields['lat'].widget = forms.HiddenInput()
         self.fields['lon'].widget = forms.HiddenInput()

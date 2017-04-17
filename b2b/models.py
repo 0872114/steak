@@ -16,8 +16,8 @@ class Printer(User):
     lat = models.FloatField(_(u'Широта'))
     lon = models.FloatField(_(u'Долгота'))
     logo = models.ImageField(_(u'Логотип'), upload_to=".printers", blank=True)
-    categories = models.ManyToManyField('b2b.Categories')
-    tags = models.ManyToManyField('b2b.Tags')
+    categories = models.ManyToManyField('b2b.Categories', verbose_name=u'Категории')
+    tags = models.ManyToManyField('b2b.Tags', verbose_name=u'Теги')
     subscribed = models.BooleanField(_(u'Подписка активна'), default=False)
     sub_expires = models.DateTimeField(_(u'Подписка истекает'), null=True)
 

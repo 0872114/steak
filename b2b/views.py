@@ -1,10 +1,9 @@
 #!python
 # -*- coding: utf8 -*-
 
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import redirect, render
 from forms import b2bCForm
 from django.template.context_processors import csrf
-from django.shortcuts import render
 
 
 def register(request):
@@ -18,6 +17,8 @@ def register(request):
             printer_form.logo = request.FILES
             printer_form.save()
             printer_form.save_m2m()
+            return redirect('user_profile')
+
         else:
             args['printers'] = printer_form
     return render(request, 'rstr/register.html', args)
