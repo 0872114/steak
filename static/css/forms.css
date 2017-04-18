@@ -78,3 +78,6 @@ html, body, #map {
     margin: 5px;
     margin-left: 0px;
 }
+.errorlist li {
+    color: #f00 !important;
+}
