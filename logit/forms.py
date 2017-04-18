@@ -18,7 +18,7 @@ class MyUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(MyUserCreationForm, self).__init__(*args, **kwargs)
         self.fields['username'].help_text = _(
-            u'Обязательное поле. Не более 30 символов. Только буквы, цифры и символы @/./+/-/_.')
+            u'Обязательное поле. Не более 30 символов. Только английские буквы, цифры и символы @/./+/-/_.')
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
