@@ -158,5 +158,7 @@ ul.nav {
 }
 
 .spyglass {
-	color: #ffffff !important;
+	width: 50px;
+	margin: 0px;
+	color: #ccc !important;
 }
