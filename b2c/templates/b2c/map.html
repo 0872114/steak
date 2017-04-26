@@ -16,7 +16,9 @@
             <input name="filter" id="filter" type="text" class="form-control" placeholder="{{ get }}">
           </div>
           <div class="col-xs-1">
-            <input type="submit" class="form-control btn-default spyglass" value="&#128269;" />
+              <button type="submit" class="form-control btn-default spyglass">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
           </div>
         {% csrf_token %}
         </div>
