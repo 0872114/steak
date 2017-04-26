@@ -32,7 +32,7 @@
   <div class="form-group logit-group">
     <label for="id_password" class="regmenu">Пароль</label>
       {{ form.password }}
-      <p class="help-block">{{ form.password.help_text }}</p>
+      <p class="help-block">{{ form.password.help_text |safe}}</p>
   </div>
 
    <button type="submit" class="btn btn-info logit">Войти</button>
