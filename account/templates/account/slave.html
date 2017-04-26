@@ -3,7 +3,7 @@
 {% block account %}
 
 <form method="post" action="" class="form-group logit-group">
-
+{% csrf_token %}
 <div class="slave-table">
 {% for field in form %}
     <dt>{{ field.label_tag }}</dt>
