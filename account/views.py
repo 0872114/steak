@@ -26,7 +26,7 @@ def account(request):
             else:
                 args['is_printer'].subscribed = False
                 args['is_printer'].save()
-            return render(request, 'account/personal_account.html', args)
+        return render(request, 'account/personal_account.html', args)
     else:
         return render(request, 'account/personal_account.html', args)
 
