@@ -4,13 +4,12 @@
 from django import forms
 from django.contrib.auth.models import User
 from b2b.models import Printer
-from b2b.forms import b2bCForm
 
 
 class UpdateProfile(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name')
+        fields = ('email', 'first_name', 'last_name')
 
     def __init__(self, *args, **kwargs):
         super(UpdateProfile, self).__init__(*args, **kwargs)
@@ -27,10 +26,10 @@ class UpdateProfile(forms.ModelForm):
             })
 
 
-class B2bUpdateProfile(b2bCForm):
+class B2bUpdateProfile(forms.ModelForm):
     class Meta:
         model = Printer
-        fields = ('username', 'address', 'name', 'first_name', 'last_name', 'email', 'phone', 'website', 'services',
+        fields = ('address', 'name', 'first_name', 'last_name', 'email', 'phone', 'website', 'services',
                   'lat', 'lon', 'logo', 'categories', 'tags')
 
     def __init__(self, *args, **kwargs):
@@ -49,5 +48,3 @@ class B2bUpdateProfile(b2bCForm):
         self.fields['address'].widget = forms.HiddenInput()
         self.fields['lat'].widget = forms.HiddenInput()
         self.fields['lon'].widget = forms.HiddenInput()
-        self.fields.pop('password1')
-        self.fields.pop('password2')
