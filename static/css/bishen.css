@@ -158,7 +158,12 @@ ul.nav {
 }
 
 .spyglass {
-	width: 50px;
 	margin: 0px;
 	color: #ccc !important;
+	padding: 0px;
+}
+
+.search-bar {
+	padding-left: 0px;
+	padding-right: 0px;
 }
