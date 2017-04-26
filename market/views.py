@@ -65,7 +65,7 @@ def show_order(request, id=None):
             # If comment added
             if 'comment' in request.POST:
                 sender = Printer.objects.get(id=int(request.POST['sender']))
-                if sender.sub_expires.astimezone(pytz.UTC) > pytz.utc.localize(datetime.now()):
+                if sender.sub_expires and sender.sub_expires.astimezone(pytz.UTC) > pytz.utc.localize(datetime.now()):
                     form = MarketCommentForm(request.POST)
                     if form.is_valid():
                         form.save()
@@ -78,7 +78,7 @@ def show_order(request, id=None):
             elif 'response_order' in request.POST:
                 current = Order.objects.get(id=int(request.POST['response_order']))
                 responder = Printer.objects.get(id=int(request.POST['responder']))
-                if responder.sub_expires.astimezone(pytz.UTC) > pytz.utc.localize(datetime.now()):
+                if responder.sub_expires and responder.sub_expires.astimezone(pytz.UTC) > pytz.utc.localize(datetime.now()):
                     current.responses.add(responder)
                 else:
                     return render(request, 'please_subscribe.html')
