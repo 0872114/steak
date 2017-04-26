@@ -172,7 +172,7 @@ def private_one(request, id=None):
                 order = Order.objects.get(id=int(id))
                 # if user is the creator
                 if order.user.id == request.user.id:
-                    args = {'is_private': True}
+                    args = {'is_private': True, 'is_printer': False}
                     order_sorted = sort_order(order)
                     args['order'] = order_sorted
                     args['comments'] = []

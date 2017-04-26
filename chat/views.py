@@ -42,7 +42,7 @@ def chat_view(request, id=None):
                 msgs = ChatMessage.objects.filter(order__id=id)
                 args['msgs'] = iterations(request, msgs)
                 if not args['msgs']:
-                    return render(request, 'please_login.html')
+                    return render(request, 'chat/chat.html', args)
                 else:
                     if args['msgs'][0]['order_sender'] == user or args['msgs'][0]['order_destination'] == user:
                         return render(request, 'chat/chat.html', args)
