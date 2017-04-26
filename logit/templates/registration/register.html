@@ -12,16 +12,16 @@
 {% block content %}
 
     <div class="bloke-register col-xs-6 col-sm-6">
-        <p>
+        <p class="text-center">
             Это форма регистрации клиента. Чтобы зарегистрировать свою типографию, перейдите по <a href="{% url 'b2b_register' %}">ссылке</a>.
         </p>
-        <h2>Зарегистрироваться через социальные сети</h2>
+        <h2 class="text-center">Зарегистрироваться через социальные сети</h2>
         <div align="center">
 				<a href="{% url 'social:begin' 'vk-oauth2' %}" class="links">
 					<img src="{% static "images/vk.png" %}" alt="VK" class="img-circle">
                 </a>
         </div>
-        <h2>Зарегистрироваться вручную</h2>
+        <h2 class="text-center">Зарегистрироваться вручную</h2>
         <form method="post" action="" class="form-group logit-group">
         {% csrf_token %}
         <dl class="register">

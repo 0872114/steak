@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 
 class MyUserCreationForm(UserCreationForm):
     email = EmailField(label=_("Email address"), required=True,
-                       help_text=_(u"Обязательное поле."))
+                       help_text=_(u"<ul><li>Обязательное поле.</li></ul>"))
 
     class Meta:
         model = User
@@ -18,7 +18,9 @@ class MyUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(MyUserCreationForm, self).__init__(*args, **kwargs)
         self.fields['username'].help_text = _(
-            u'Обязательное поле. Не более 30 символов. Только английские буквы, цифры и символы @/./+/-/_.')
+            u'<ul><li>Обязательное поле. Не более 30 символов. Только английские буквы, цифры и символы @/./+/-/_.</li></ul>')
+        self.fields['password2'].help_text = _(
+            u'<ul><li>Для подтверждения введите, пожалуйста, пароль ещё раз.</li></ul>')
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
