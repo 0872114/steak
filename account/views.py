@@ -13,7 +13,7 @@ import pytz
 
 
 def account(request):
-    args = {'is_printer': check_printer(request)}
+    args = dict({'is_printer': check_printer(request)})
     args['expires_soon'] = False
     if args['is_printer'] is not False:
         if args['is_printer'].subscribed is True:
