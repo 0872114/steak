@@ -5,6 +5,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
+
 class Printer(User):
     user = models.OneToOneField(User, null=False)
     name = models.CharField(_(u'Название компании'), max_length=30)
@@ -20,7 +21,6 @@ class Printer(User):
     tags = models.ManyToManyField('b2b.Tags', verbose_name=u'Теги')
     subscribed = models.BooleanField(_(u'Подписка активна'), default=False)
     sub_expires = models.DateTimeField(_(u'Подписка истекает'), null=True)
-
 
     class Meta:
         verbose_name = _(u'Печатник')
@@ -47,7 +47,7 @@ class Tags(models.Model):
         'Categories',
         on_delete=models.CASCADE,
         default='',
-        null = True,
+        null=True,
     )
 
     class Meta:
