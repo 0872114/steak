@@ -83,3 +83,35 @@ body{margin-top:20px;}
     margin: 20px;
     text-align: center;
 }
+
+.pass-change-btn {
+    margin-top: 10px;
+}
+
+@media only screen and (max-device-width: 1023px) {
+    .form-control {
+        width: 100%;
+    }
+    .logit-group {
+        width: 100%;
+        margin: 0px;
+        margin-bottom: 10px;
+    }
+    .forms {
+        margin-left: 10px;
+    }
+}
+
+@media only screen and (max-device-width: 560px) {
+    .forms {
+        margin-left: 10px;
+        width: 100%;
+    }
+    .form-control {
+        width: 100%;
+    }
+    .bloke-login {
+        margin-left: 60px;
+    }
+
+}
