@@ -20,6 +20,12 @@
 				<a href="{% url 'social:begin' 'vk-oauth2' %}" class="links">
 					<img src="{% static "images/vk.png" %}" alt="VK" class="img-circle">
                 </a>
+                <a href="{% url 'social:begin' 'facebook' %}" class="links">
+					<img src="{% static "images/fb.png" %}" alt="Facebook" class="img-circle">
+                </a>
+                <a href="{% url 'social:begin' 'twitter' %}" class="links">
+					<img src="{% static "images/tw.png" %}" alt="Twitter" class="img-circle">
+                </a>
         </div>
         <h2 class="text-center">Зарегистрироваться вручную</h2>
         <form method="post" action="" class="form-group logit-group">
