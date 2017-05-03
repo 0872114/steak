@@ -52,8 +52,9 @@ def master_account(request):
     args = {'is_printer': check_printer(request)}
     instance = Printer.objects.get(id=request.user.id)
     if request.POST:
-        form = B2bUpdateProfile(request.POST, instance=instance)
+        form = B2bUpdateProfile(request.POST, request.FILES, instance=instance)
         if form.is_valid():
+            form.logo = request.FILES
             form.save()
             return redirect('./')
     args['form'] = B2bUpdateProfile(request.POST or None, instance=instance)

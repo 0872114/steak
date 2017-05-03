@@ -53,8 +53,12 @@ def map(request, template='b2c/map.html'):
             marker_name="marker_" + str(printer.id),
             address=printer.address,
             name=printer.name,
-            id=printer.id
+            id=printer.id,
         )
+        try:
+            marker['logo'] = printer.logo.url
+        except ValueError:
+            marker['logo'] = None
         args['printers'].append(marker)
     tuple(args['printers'])
 

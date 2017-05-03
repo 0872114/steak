@@ -181,6 +181,7 @@ function setGoogleMapCoords(lat, lon){
         {{ printer.marker_name }}.id = '{{ printer.id }}';
         {{ printer.marker_name }}.name = '{{ printer.name }}';
         {{ printer.marker_name }}.address = '{{ printer.address }}';
+        {{ printer.marker_name }}.logo = '{{ printer.logo }}';
         {{ printer.marker_name }}.addListener('click', function() {showPopup(this.name, this.id)});
     {% endfor %}
 
