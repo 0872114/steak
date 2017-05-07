@@ -26,7 +26,43 @@
 {% endblock %}
 
 {% block content %}
-<div id="map" style="height: 600px; width: 100%;"></div>
+
+<div style="width: 100%; display: table;">
+    <div style="display: table-row;">
+
+<div id="map-b2c" style="width: 70%; display: table-cell;"></div>
+    <div class="container printers-container" style="display: table-cell; padding: 0px;">
+     <div class="printers-list-header">
+         <h4>   Список печатников    </h4>
+     </div>
+     <div class="printers-list">
+         {% if printers %}
+            {% for entry in printers %}
+                <div class="shadow-container">
+            <div style="display: flex;" >
+            <button class="some-printer name" style="width: 50%;">
+                <span class="text-uppercase">{{ entry.name }}</span>
+            </button>
+            <div class="some-printer rating" style="flex-grow: 1;">
+               {% for i in cycle %}
+                   <i class="fa fa-star-o" aria-hidden="true"></i>
+               {% endfor %}
+            </div>
+            </div>
+            <div class="printer-info-short">
+                <span>Услуги: </span>{{ entry.services }} </br>
+                <span>Вебсайт: </span><a href="{{ entry.website|safe }}">{{ entry.website|safe }}</a> </br>
+            </div>
+            <div class="printer-info-full">
+                <span>Адресс: </span> <span style="font-style: oblique;">{{ entry.address }} </span> </br>
+                <span>Тел.: </span> <span style="font-style: oblique"> {{ entry.phone }} </span> </br>
+                <button class="btn btn-primary make-call" data-id="{{ entry.id }}" data-name="{{ entry.name }}">Сделать заказ</button>
+            </div>
+                </div>
+            {% endfor %}
+     {% endif %}
+     </div>
+    </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -98,6 +134,10 @@
       </div>
   </div>
 </div>
+
+  <!-- wrapper end !-->
+</div>
+</div>
 <script src="http://maps.google.com/maps/api/js?key=AIzaSyCIC6deUmipx1i53t2ncZlP7MUTeQ52qvY"></script>
 
 <script>
@@ -159,7 +199,7 @@ function setGoogleMapCoords(lat, lon){
 	};
 
 	// create a new map
-	map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	map = new google.maps.Map(document.getElementById("map-b2c"), mapOptions);
 
 	// 3.1 Add a marker
 	google.maps.event.addListenerOnce(map, 'idle', function(){
@@ -193,7 +233,18 @@ function setGoogleMapCoords(lat, lon){
 window.onload = function(){
     console.log('window is loaded');
     restyleChboxes();
-    fillForm()
+    fillForm();
+
+    $('.name').click(function ( event ) {
+        $(event.target).parents('.shadow-container').find('.printer-info-full').slideToggle(200);
+    });
+
+    $('.make-call').click(function (event) {
+        var fid = $(event.target).attr('data-id');
+        var fname = $(event.target).attr('data-name');
+        showPopup(fname, fid);
+    });
+
     navigator.geolocation.getCurrentPosition(
         function(position) {
             console.log('geo is loaded');
@@ -215,7 +266,9 @@ window.onload = function(){
     $( "#id_categories" ).change(function() {
 		sortChboxes();
 	});
-}
+};
+
+
 
 </script>
 {% endblock %}

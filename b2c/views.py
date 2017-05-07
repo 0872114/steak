@@ -35,9 +35,10 @@ def map(request, template='b2c/map.html'):
         args['get'] = filter
         printers = Printer.objects.filter(Q(name__icontains=filter) | \
                                           Q(categories__category__icontains=filter) | \
-                                          Q(tags__tag__icontains=filter)).distinct()
+                                          Q(tags__tag__icontains=filter) | \
+                                          Q(sub_expires__gt=datetime.now()) ).distinct().order_by('name')
     else:
-        printers = Printer.objects.filter(sub_expires__gt=datetime.now())
+        printers = Printer.objects.filter(sub_expires__gt=datetime.now()).order_by('name')
         if request.POST:
             form = OrderForm(request.POST)
             if form.is_valid():
@@ -54,6 +55,9 @@ def map(request, template='b2c/map.html'):
             address=printer.address,
             name=printer.name,
             id=printer.id,
+            phone=printer.phone,
+            website=printer.website,
+            services=printer.services,
         )
         try:
             marker['logo'] = printer.logo.url
@@ -62,6 +66,7 @@ def map(request, template='b2c/map.html'):
         args['printers'].append(marker)
     tuple(args['printers'])
 
+    args['cycle'] = range(5)
     return render(request, template, args)
 
 
@@ -80,3 +85,7 @@ def market(request):
 
 def market_success(request):
         return render(request, 'b2c/market_success.html')
+
+
+def sort_by_name_bubble(list):
+    return True
