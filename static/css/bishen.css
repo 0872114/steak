@@ -172,11 +172,24 @@ ul.nav {
 	text-align: center;
 }
 
+
+.table-view {
+	width: 100%;
+	display: table;
+}
+.table-view-row {
+	display: table-row;
+}
+
 #map-b2c {
+	width: 70%;
+	display: table-cell;
 	height: 600px;
 }
 
 .printers-container {
+	display: table-cell;
+	padding: 0px;
 }
 
 .printers-list-header {
@@ -229,4 +242,30 @@ ul.nav {
 
 .name {
     font-weight: bold;
+}
+
+@media only screen and (max-device-width: 500px) {
+	.table-view {
+		display: inherit;
+	}
+	.table-view-row {
+		display: inherit;
+	}
+	#map-b2c {
+		display: inherit;
+		width: 100%;
+		height: 400px;
+	}
+	.printers-container {
+		display: inherit;
+	}
+	.printers-list {
+		height: 300px;
+		padding: 0px;
+		width: 100%;
+	}
+	.printers-list-header {
+		width: 100%;
+		padding: 0px;
+	}
 }
