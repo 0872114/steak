@@ -21,6 +21,8 @@ class Printer(User):
     tags = models.ManyToManyField('b2b.Tags', verbose_name=u'Теги')
     subscribed = models.BooleanField(_(u'Подписка активна'), default=False)
     sub_expires = models.DateTimeField(_(u'Подписка истекает'), null=True)
+    metro = models.CharField(_(u'Метро'), max_length=150, blank=True)
+    schedule = models.CharField(_(u'Время работы'), max_length=150, blank=True)
 
     class Meta:
         verbose_name = _(u'Печатник')
