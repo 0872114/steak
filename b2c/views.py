@@ -58,11 +58,20 @@ def map(request, template='b2c/map.html'):
             phone=printer.phone,
             website=printer.website,
             services=printer.services,
+            schedule=printer.schedule,
         )
         try:
             marker['logo'] = printer.logo.url
         except ValueError:
             marker['logo'] = None
+        try:
+            marker['metro'] = printer.metro
+        except ValueError:
+            marker['metro'] = "N/A"
+        try:
+            marker['schedule'] = printer.schedule
+        except ValueError:
+            marker['schedule'] = "N/A"
         args['printers'].append(marker)
     tuple(args['printers'])
 

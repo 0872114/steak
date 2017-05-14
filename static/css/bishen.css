@@ -182,7 +182,7 @@ ul.nav {
 }
 
 #map-b2c {
-	width: 70%;
+	width: 60%;
 	display: table-cell;
 	height: 600px;
 }
@@ -199,7 +199,7 @@ ul.nav {
 	border-top-right-radius: 5px;
 	border-top-left-radius: 5px;
 	display: inline-block;
-	background-color: #e6f2ff;
+	background-color: rgb(163,204,255);
 	border-color: lightsteelblue;
 	padding-left: 30%;
 	padding-right: 30%;
@@ -230,13 +230,20 @@ ul.nav {
 
 
 .rating {
-	text-align: center;
-	line-height: 40px;
+	line-height: 25px;
 	vertical-align: middle;
 }
 
+.printer-info-full, .printer-info-short {
+	font-size: 90%;
+	text-align: left;
+}
+
+.printer-info-short .printer-name {
+	text-align: center!important;
+}
+
 .printer-info-full {
-    display: none;
     padding-bottom: 5px;
 }
 

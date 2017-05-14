@@ -33,30 +33,34 @@
 <div id="map-b2c"></div>
     <div class="container printers-container">
      <div class="printers-list-header">
-         <h4>   Список печатников    </h4>
+         <h3 style="color: white;">   Список компаний    </h3>
      </div>
      <div class="printers-list">
          {% if printers %}
             {% for entry in printers %}
                 <div class="shadow-container">
             <div style="display: flex;" >
-            <button class="some-printer name" style="width: 50%;">
-                <span class="text-uppercase">{{ entry.name }}</span>
-            </button>
-            <div class="some-printer rating" style="flex-grow: 1;">
-               {% for i in cycle %}
+            <div>
+                <img class="text-uppercase" style="width: 100px; height: 100px; display: block" src="{{ entry.logo }}"></img>
+                <div class="some-printer rating" style="display: block">
+                {% for i in cycle %}
                    <i class="fa fa-star-o" aria-hidden="true"></i>
-               {% endfor %}
+                {% endfor %}
+                </div>
             </div>
-            </div>
+            <div class="some-printer rating" style="flex-grow: 0;">
             <div class="printer-info-short">
-                <span>Услуги: </span>{{ entry.services }} </br>
-                <span>Вебсайт: </span><a href="{{ entry.website|safe }}">{{ entry.website|safe }}</a> </br>
+                <h4 class="printer-name" style="font-weight: bold; font-size: 110%; text-align: center;">{{ entry.name }} </h4>
+                <span style="font-weight: bold">Адрес: </span><span style="font-style: oblique;">{{ entry.address }} </span> </br>
+                <span style="font-weight: bold">Метро: </span><span style="font-style: oblique;">{{ entry.metro }} </span> </br>
             </div>
             <div class="printer-info-full">
-                <span>Адресс: </span> <span style="font-style: oblique;">{{ entry.address }} </span> </br>
-                <span>Тел.: </span> <span style="font-style: oblique"> {{ entry.phone }} </span> </br>
+                <span style="font-weight: bold">Время работы: </span><span style="font-style: oblique;">{{ entry.schedule }} </span> </br>
+                <span style="font-weight: bold">Перечень услуг: </span> <span style="font-style: oblique"> {{ entry.services }} </span> </br>
                 <button class="btn btn-primary make-call" data-id="{{ entry.id }}" data-name="{{ entry.name }}">Сделать заказ</button>
+                <button class="btn btn-primary reviews">Отзывы</button>
+            </div>
+            </div>
             </div>
                 </div>
             {% endfor %}
