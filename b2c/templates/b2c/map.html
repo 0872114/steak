@@ -58,7 +58,7 @@
                 <span style="font-weight: bold">Время работы: </span><span style="font-style: oblique;">{{ entry.schedule }} </span> </br>
                 <span style="font-weight: bold">Перечень услуг: </span> <span style="font-style: oblique"> {{ entry.services }} </span> </br>
                 <button class="btn btn-primary make-call" data-id="{{ entry.id }}" data-name="{{ entry.name }}">Сделать заказ</button>
-                <button class="btn btn-primary reviews">Отзывы</button>
+                <a target="_blank" href="{% url 'comments' id=entry.id %}" class="btn btn-primary reviews">Отзывы</a>
             </div>
             </div>
             </div>

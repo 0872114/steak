@@ -57,7 +57,6 @@ def map(request, template='b2c/map.html'):
             phone=printer.phone,
             website=printer.website,
             services=printer.services,
-            schedule=printer.schedule,
         )
         try:
             marker['logo'] = printer.logo.url

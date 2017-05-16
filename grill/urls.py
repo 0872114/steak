@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^b2b/', include('b2b.urls')),
     url(r'^chat/', include('chat.urls')),
     url(r'^accounts/', include('account.urls')),
+    url(r'^comments/', include('comments.urls')),
     url(r'^auth/', include('social_django.urls', namespace='social')),
 ]
 
