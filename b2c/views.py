@@ -35,8 +35,7 @@ def map(request, template='b2c/map.html'):
         args['get'] = filter
         printers = Printer.objects.filter(Q(name__icontains=filter) | \
                                           Q(categories__category__icontains=filter) | \
-                                          Q(tags__tag__icontains=filter) | \
-                                          Q(sub_expires__gt=datetime.now()) ).distinct().order_by('name')
+                                          Q(tags__tag__icontains=filter)).filter(sub_expires__gt=datetime.now()).distinct().order_by('name')
     else:
         printers = Printer.objects.filter(sub_expires__gt=datetime.now()).order_by('name')
         if request.POST:
