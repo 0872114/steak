@@ -57,10 +57,12 @@
                         <div class="printer-info-full">
                             <span style="font-weight: bold">Время работы: </span><span style="font-style: oblique;">{{ entry.schedule }} </span> </br>
                             <span style="font-weight: bold">Перечень услуг: </span> <span style="font-style: oblique"> {{ entry.services }} </span> </br>
-                            <button class="btn btn-primary make-call" data-id="{{ entry.id }}" data-name="{{ entry.name }}">Сделать заказ</button>
-                            <a target="_blank" href="{% url 'comments' id=entry.id %}" class="btn btn-primary reviews">Отзывы</a>
                         </div>
                         </div>
+                    </div>
+                    <div id="buttons">
+                    <button class="btn btn-primary make-call" data-id="{{ entry.id }}" data-name="{{ entry.name }}">Сделать заказ</button>
+                    <a target="_blank" href="{% url 'comments' id=entry.id %}" class="btn btn-primary reviews">Отзывы</a>
                     </div>
                 </div>
             {% endfor %}
@@ -241,11 +243,8 @@ window.onload = function(){
     fillForm();
 
     $('.shadow-container').click(function ( event ) {
-        console.log($(event.target));
         var flatitude = parseFloat($(event.target).parents('.shadow-container').attr('data-lat') );
         var flongitude = parseFloat($(event.target).parents('.shadow-container').attr('data-lon') );
-        console.log(flatitude);
-        console.log(flongitude);
         map.setCenter({lat: flatitude, lng: flongitude});
     });
 

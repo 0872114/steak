@@ -192,6 +192,10 @@ ul.nav {
 	padding: 0px;
 }
 
+#buttons {
+	text-align: center;
+}
+
 .printers-list-header {
 	text-align: center;
 	border-style: solid;
@@ -201,8 +205,8 @@ ul.nav {
 	display: inline-block;
 	background-color: rgb(163,204,255);
 	border-color: lightsteelblue;
-	padding-left: 30%;
-	padding-right: 30%;
+	word-wrap: break-word;
+	width: 100%;
 }
 
 .printers-list {
@@ -251,7 +255,7 @@ ul.nav {
     font-weight: bold;
 }
 
-@media only screen and (max-device-width: 500px) {
+@media only screen and (max-device-width: 531px) {
 	.table-view {
 		display: inherit;
 	}
