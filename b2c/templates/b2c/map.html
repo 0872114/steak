@@ -38,7 +38,7 @@
      <div class="printers-list">
          {% if printers %}
             {% for entry in printers %}
-                <div class="shadow-container">
+                <div class="shadow-container" data-lat="{{ entry.lat }}" data-lon="{{ entry.lon }}">
                     <div style="display: flex;" >
                         <div>
                             <img class="text-uppercase" style="width: 100px; height: 100px; display: block" src="{{ entry.logo }}"></img>
@@ -186,12 +186,13 @@ function showPopup(name, id){
     $('#id_destination').val(id);
 }
 
+var map;
+
 function setGoogleMapCoords(lat, lon){
 
 	// ! $scope is for AngularJS, use common variables instead
 
 	// set latln by latitude and longitude
-	var map;
 	var latLng = new google.maps.LatLng(lat, lon);
 	console.log(lat, lon);
 
@@ -240,7 +241,12 @@ window.onload = function(){
     fillForm();
 
     $('.shadow-container').click(function ( event ) {
-        console.log('shadow-container clicked on');
+        console.log($(event.target));
+        var flatitude = parseFloat($(event.target).parents('.shadow-container').attr('data-lat') );
+        var flongitude = parseFloat($(event.target).parents('.shadow-container').attr('data-lon') );
+        console.log(flatitude);
+        console.log(flongitude);
+        map.setCenter({lat: flatitude, lng: flongitude});
     });
 
     $('.name').click(function ( event ) {
