@@ -54,7 +54,20 @@
 
 <script>
 
-
+$(function() {
+    $('#id_categories').change(function() {
+        var selected = $('#id_categories').find(":selected"),
+            optionDict = {{ tags |safe }};
+        $('#id_tags option').each( function() {
+            this.selected=false;
+            if ($.inArray(parseInt(selected.val()), optionDict[$(this).val()]) != -1){
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        })
+    });
+});
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 8,
@@ -124,6 +137,7 @@ function geocodePosition(pos)
 
 window.onload = function() {
     $('#id_logo').removeClass('form-control');
+    $('#id_tags option').each( function() {$(this).hide();});
     initMap();
 }
 </script>

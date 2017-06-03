@@ -25,7 +25,7 @@ def map(request, template='b2c/map.html'):
     tags = Tags.objects.distinct()
     mystring = ''
     for tag in tags:
-        mydict = u'%d:%d' % (tag.id, tag.cat.id)
+        mydict = u'%d:%s' % (tag.id, '[' + (", ".join(str(p.id) for p in tag.cat.all())) + ']')
         mystring = u'%s, %s' % (mystring, mydict)
 
     args['tags'] = '{%s}' % (mystring[2:])

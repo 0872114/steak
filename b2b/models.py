@@ -45,11 +45,8 @@ class Categories(models.Model):
 
 class Tags(models.Model):
     tag = models.CharField(_(u'Тег'), max_length=50)
-    cat = models.ForeignKey(
-        'Categories',
-        on_delete=models.CASCADE,
-        default='',
-        null=True,
+    cat = models.ManyToManyField(
+        'b2b.Categories', verbose_name=u'Категории'
     )
 
     class Meta:

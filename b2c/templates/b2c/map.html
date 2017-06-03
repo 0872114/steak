@@ -168,7 +168,7 @@ function sortChboxes(){
         chboxDict = {{ tags |safe }};
     $.each(chboxes, function() {
         $(this).prop('checked', false);
-        if (chboxDict[$(this).val()] == selected.val()){
+        if ($.inArray(parseInt(selected.val()), chboxDict[$(this).val()]) != -1){
             $(this).parent().show();
         } else {
             $(this).parent().hide();
