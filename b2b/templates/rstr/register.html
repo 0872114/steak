@@ -60,12 +60,14 @@ $(function() {
             optionDict = {{ tags |safe }};
         $('#id_tags option').each( function() {
             this.selected=false;
-            if ($.inArray(parseInt(selected.val()), optionDict[$(this).val()]) != -1){
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        })
+            $(this).hide();
+            self = $(this);
+            $('#id_categories :selected').each( function(i, val) {
+                if ($.inArray(parseInt($(val).val()), optionDict[$(self).val()]) != -1){
+                    $(self).show();
+                }
+            });
+        });
     });
 });
 function initMap() {
